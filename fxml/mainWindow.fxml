@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="375.0" prefWidth="600.0">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="138.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Kunde anlegen" />
+                        <Label text="Ermöglicht es einen neuen Kunden anzulegen" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" text="Kunde löschen" />
+                        <Label text="Löscht einen Kunden aus dem System" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="138.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Kundendaten ändern" />
+                        <Label text="Ermöglicht es Kundendaten eines bereits existierenden Kunden zu ändern" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="138.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Kunde suchen" />
+                        <Label text="Findet existierende Kunden" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

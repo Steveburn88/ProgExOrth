@@ -5,8 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<!--
+  <fx:define>
+   	<ToggleGroup fx:id="AnredeGroup" />
+   </fx:define> 
+-->
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.CreateCustomerController">
+  
+   
+  
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -14,61 +22,64 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Herr" />
-                        <RadioButton mnemonicParsing="false" text="Frau" />
+                        <RadioButton fx:id="herr" mnemonicParsing="false" text="Herr">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="salutation" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="frau" mnemonicParsing="false" text="Frau" toggleGroup="$salutation" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="firstName" />
                         <Label text="Vorname" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="lastName" />
                         <Label text="Nachname" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="phoneNumber" />
                         <Label text="Telefon" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="position" />
                         <Label text="Position" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="department" />
                         <Label text="Abteilung" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="email" />
                         <Label text="Email" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="buildingNumber" />
                         <Label text="Gebäudenummer" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="roomNumber" />
                         <Label text="Zimmernummer" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField />
+                        <TextField fx:id="faxNumber" />
                         <Label text="Fax" />
                      </children>
                   </HBox>
@@ -77,7 +88,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Kundennummer (falls leer muss neuer FiKu erstellt werden)" wrapText="true" />
-                  <TextField />
+                  <TextField fx:id="fiCustomerId" />
                </children>
             </VBox>
          </children>
@@ -86,8 +97,8 @@
    <bottom>
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Erstellen" />
-            <Button mnemonicParsing="false" text="Abbrechen" />
+            <Button fx:id="createCustomerButton" mnemonicParsing="false" onAction="#createCustomer" text="Erstellen" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
          </children>
       </HBox>
    </bottom>

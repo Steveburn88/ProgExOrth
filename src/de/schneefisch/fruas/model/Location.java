@@ -4,7 +4,7 @@ public class Location {
 
 	private int id;
 	private int fiKuId;
-	private int postalCode;
+	private String postalCode;
 	private String city;
 	private String postBox;
 	private String street;
@@ -14,8 +14,7 @@ public class Location {
 
 	}
 
-	public Location(int fiKuId, int postalCode, String city, String postBox, String street, String houseNumber) {
-		this.fiKuId = fiKuId;
+	public Location(String postalCode, String city, String postBox, String street, String houseNumber) {
 		this.postalCode = postalCode;
 		this.city = city;
 		this.postBox = postBox;
@@ -39,11 +38,11 @@ public class Location {
 		this.fiKuId = fiKuId;
 	}
 
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -77,6 +76,12 @@ public class Location {
 
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", fiKuId=" + fiKuId + ", postalCode=" + postalCode + ", city=" + city
+				+ ", postBox=" + postBox + ", street=" + street + ", houseNumber=" + houseNumber + "]";
 	}
 
 }

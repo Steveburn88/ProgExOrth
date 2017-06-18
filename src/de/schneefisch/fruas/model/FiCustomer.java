@@ -29,4 +29,10 @@ public class FiCustomer {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "FiCustomer [id=" + id + ", name=" + name + "]";
+	}
+
+	
 }

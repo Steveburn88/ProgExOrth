@@ -20,9 +20,26 @@ public class Customer {
 
 	}
 
-	public Customer(Salutation salutation, String firstName, String lastName,
-			String phoneNumber, String email, String position, String department, String roomNumber,
-			String buildingNumber, String faxNumber) {
+	public Customer(int fiKuId, Salutation salutation, String firstName, String lastName, String phoneNumber,
+			String email, String position, String department, String roomNumber, String buildingNumber,
+			String faxNumber) {
+
+		this.fiKuId = fiKuId;
+
+		this.salutation = salutation;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.position = position;
+		this.department = department;
+		this.roomNumber = roomNumber;
+		this.buildingNumber = buildingNumber;
+		this.faxNumber = faxNumber;
+	}
+
+	public Customer(Salutation salutation, String firstName, String lastName, String phoneNumber, String email,
+			String position, String department, String roomNumber, String buildingNumber, String faxNumber) {
 		this.salutation = salutation;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -146,7 +163,5 @@ public class Customer {
 				+ email + ", position=" + position + ", department=" + department + ", roomNumber=" + roomNumber
 				+ ", buildingNumber=" + buildingNumber + ", faxNumber=" + faxNumber + "]";
 	}
-	
-	
 
 }

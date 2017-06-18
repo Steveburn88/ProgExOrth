@@ -3,6 +3,7 @@ package de.schneefisch.fruas.controller;
 
 import java.io.IOException;
 
+import de.schneefisch.fruas.database.DBConnector;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Salutation;
 import javafx.event.ActionEvent;
@@ -39,15 +40,33 @@ public class CreateCustomerController {
 		if(frau.isSelected()) {			
 			salut = Salutation.Frau;
 		}					
-		Customer customer = new Customer(salut, firstName.getText(), lastName.getText(), 
-				phoneNumber.getText(), email.getText(), 
-				position.getText(), department.getText(), 
-				roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
-		System.out.println("Customer created:");
-		System.out.println(customer);	
+		
+			
 		// Erstelle neuen FiKu falls keine ID angegeben wird:
 		if(fiCustomerId.getText().equals("")) {
+			Customer customer = new Customer(salut, firstName.getText(), lastName.getText(), 
+					phoneNumber.getText(), email.getText(), 
+					position.getText(), department.getText(), 
+					roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
 			showCreateFiCustomer(customer);
+		} else {
+			
+			int fiCustomerIdAsInt = Integer.parseInt(fiCustomerId.getText().trim(),10);
+			
+			Customer customer = new Customer(fiCustomerIdAsInt, salut, firstName.getText(), lastName.getText(), 
+					phoneNumber.getText(), email.getText(), 
+					position.getText(), department.getText(), 
+					roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
+			System.out.println("Customer with FiCustomerId " + customer.getFiKuId() + " created: ");
+			System.out.println(customer);		
+			
+			try {
+				DBConnector dbconn = new DBConnector();
+				dbconn.insertCustomer(customer);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	@FXML

@@ -12,8 +12,23 @@ import javafx.stage.Stage;
 
 public class MainWindowController {
 
+	@FXML private Button createCustomerButton;	
+	@FXML private Button searchCustomerButton;
+	
 	@FXML
-	private Button createCustomerButton;
+	private void searchCustomer(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchCustomer.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Kundensuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim öffnen des Kundensuche Fensters!");
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	private void createCustomer(ActionEvent event) {

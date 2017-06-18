@@ -5,47 +5,47 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="395.0" prefWidth="300.0">
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <TextField />
-                        <Label text="ID" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <TextField />
-                        <Label text="Name" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <TextField />
-                        <Label text="PLZ" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <TextField />
-                        <Label text="Stadt" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.SearchCustomerController">
    <bottom>
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Suchen" />
-            <Button mnemonicParsing="false" text="Abbrechen" />
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchCustomer" text="Suchen" />
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editCustomer" text="Bearbeiten" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteCustomer" text="Löschen" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
          </children>
       </HBox>
    </bottom>
+   <top>
+      <VBox prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="31.0" prefWidth="600.0">
+               <children>
+                  <TextField fx:id="idField" />
+                  <Label text="ID" />
+                  <TextField fx:id="nameField" />
+                  <Label text="Name" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="id" prefWidth="75.0" text="id" />
+            <TableColumn fx:id="fiCustomerId" prefWidth="75.0" text="FiKu" />
+            <TableColumn fx:id="locationId" prefWidth="75.0" text="Standort" />
+            <TableColumn fx:id="salutation" prefWidth="75.0" text="Anrede" />
+            <TableColumn fx:id="firstName" prefWidth="75.0" text="Vorname" />
+            <TableColumn fx:id="lastName" prefWidth="75.0" text="Nachname" />
+            <TableColumn fx:id="phoneNumber" prefWidth="75.0" text="Telefon" />
+            <TableColumn fx:id="email" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="position" prefWidth="75.0" text="Position" />
+            <TableColumn fx:id="department" prefWidth="75.0" text="Abteilung" />
+            <TableColumn fx:id="roomNumber" prefWidth="75.0" text="Raum" />
+            <TableColumn fx:id="buildingNumber" prefWidth="75.0" text="Gebäude" />
+            <TableColumn fx:id="faxNumber" prefWidth="75.0" text="Fax" />
+         </columns></TableView>
+   </center>
 </BorderPane>

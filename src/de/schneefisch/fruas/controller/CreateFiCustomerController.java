@@ -4,7 +4,6 @@ import de.schneefisch.fruas.database.DBConnector;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.FiCustomer;
 import de.schneefisch.fruas.model.Location;
-import de.schneefisch.fruas.model.Salutation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,6 +47,8 @@ public class CreateFiCustomerController {
 		customer.setFiKuId(insertedFi.getId());
 		customer.setLocationId(insertedLoc.getId());
 		Customer insertedCust = dbc.insertCustomer(customer);
+		Stage stage = (Stage) createFiCustomerButton.getScene().getWindow();
+	    stage.close();
 		
 	}
 	

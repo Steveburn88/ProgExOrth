@@ -19,13 +19,46 @@ public class Customer {
 	public Customer() {
 
 	}
+	
+	public Customer(int id, int fiKuId, int locationId, Salutation salutation, String firstName, String lastName, String phoneNumber,
+			String email, String position, String department, String roomNumber, String buildingNumber,
+			String faxNumber) {
+		this.id = id;
+		this.fiKuId = fiKuId;
+		this.locationId = locationId;
+		this.salutation = salutation;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.position = position;
+		this.department = department;
+		this.roomNumber = roomNumber;
+		this.buildingNumber = buildingNumber;
+		this.faxNumber = faxNumber;
+	}
 
-	public Customer(int fiKuId, Salutation salutation, String firstName, String lastName, String phoneNumber,
+	public Customer(int fiKuId, int locationId, Salutation salutation, String firstName, String lastName, String phoneNumber,
 			String email, String position, String department, String roomNumber, String buildingNumber,
 			String faxNumber) {
 
 		this.fiKuId = fiKuId;
-
+		this.locationId = locationId;
+		this.salutation = salutation;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.position = position;
+		this.department = department;
+		this.roomNumber = roomNumber;
+		this.buildingNumber = buildingNumber;
+		this.faxNumber = faxNumber;
+	}
+	
+	public Customer(int id, Salutation salutation, String firstName, String lastName, String phoneNumber, String email,
+			String position, String department, String roomNumber, String buildingNumber, String faxNumber) {
+		this.id = id;
 		this.salutation = salutation;
 		this.firstName = firstName;
 		this.lastName = lastName;

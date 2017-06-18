@@ -25,13 +25,9 @@
         </rowConstraints>
          <children>
             <Button fx:id="createCustomerButton" mnemonicParsing="false" onAction="#createCustomer" prefHeight="25.0" prefWidth="151.0" text="Kunde anlegen" />
-            <Label text="Ermöglicht es einen neuen Kunden anzulegen" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Kunde löschen" GridPane.rowIndex="1" />
-            <Label text="Löscht einen Kunden" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Kundendaten ändern" GridPane.rowIndex="2" />
-            <Label text="Ermöglicht es Kundendaten eines bereits existierenden Kunden zu ändern" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Kunde suchen" GridPane.rowIndex="3" />
-            <Label text="Findet existierende Kunden" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Ermöglicht es neue Kunden anzulegen" GridPane.columnIndex="1" />
+            <Button fx:id="searchCustomerButton" mnemonicParsing="false" onAction="#searchCustomer" prefHeight="25.0" prefWidth="152.0" text="Kunde suchen" GridPane.rowIndex="1" />
+            <Label text="Findet existierende Kunden zum Bearbeiten und Löschen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

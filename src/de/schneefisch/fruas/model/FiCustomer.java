@@ -9,6 +9,11 @@ public class FiCustomer {
 
 	}
 
+	public FiCustomer(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
 	public FiCustomer(String name) {
 		this.name = name;
 	}

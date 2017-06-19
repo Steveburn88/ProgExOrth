@@ -14,6 +14,11 @@ public class MainWindowController {
 
 	@FXML private Button createCustomerButton;	
 	@FXML private Button searchCustomerButton;
+	@FXML private Button searchProductButton;
+	@FXML private Button searchOfferButton;
+	@FXML private Button searchBillButton;
+	@FXML private Button searchDeliveryNoteButton;
+
 	
 	@FXML
 	private void searchCustomer(ActionEvent event) {
@@ -44,6 +49,66 @@ public class MainWindowController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@FXML
+	private void searchProduct(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchProducts.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Produktsuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim öffnen des produktsuche Fensters!");
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void searchOffer(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchOffers.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Angebotssuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim öffnen des angebotssuche Fensters!");
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void searchBill(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchBills.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Rechnungssuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim öffnen des rechnungssuche Fensters!");
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void searchDeliveryNote(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchDeliveryNotes.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Lieferscheinsuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim öffnen des lieferscheinsuche Fensters!");
+			e.printStackTrace();
+		}
 	}
 
 }

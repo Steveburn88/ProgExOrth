@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.SearchCustomerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.SearchBillController">
    <bottom>
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchCustomer" text="Suchen" />
-            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editCustomer" text="Bearbeiten" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteCustomer" text="Löschen" />
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Suchen" />
+            <Button fx:id="editButton" mnemonicParsing="false" text="Bearbeiten" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" text="Löschen" />
             <Button mnemonicParsing="false" text="Lieferschein anzeigen" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
          </children>

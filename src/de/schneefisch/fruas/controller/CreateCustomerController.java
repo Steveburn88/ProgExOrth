@@ -2,7 +2,8 @@ package de.schneefisch.fruas.controller;
 
 import java.io.IOException;
 
-import de.schneefisch.fruas.database.DBConnector;
+import de.schneefisch.fruas.database.CustomerDAO;
+import de.schneefisch.fruas.database.LocationDAO;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Location;
 import de.schneefisch.fruas.model.Salutation;
@@ -61,24 +62,26 @@ public class CreateCustomerController {
 					email.getText(), position.getText(), department.getText(), roomNumber.getText(),
 					buildingNumber.getText(), faxNumber.getText());
 			showCreateFiCustomer(customer);
+			Stage stage = (Stage) cancelButton.getScene().getWindow();
+			stage.close();
 		} else {
 
 			int fiCustomerIdAsInt = Integer.parseInt(fiCustomerId.getText().trim(), 10);
 			try {
-				DBConnector dbconn = new DBConnector();
-				Location location = dbconn.selectFiCustomerLocation(fiCustomerIdAsInt);
+				CustomerDAO cdao = new CustomerDAO();
+				LocationDAO ldao = new LocationDAO();				
+				Location location = ldao.findLocationByFiCustomerId(fiCustomerIdAsInt);
 				if(location != null) {
 					Customer customer = new Customer(fiCustomerIdAsInt, location.getId(), salut, firstName.getText(),
 							lastName.getText(), phoneNumber.getText(), email.getText(), position.getText(),
 							department.getText(), roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
-					Customer insertedCustomer = dbconn.insertCustomer(customer);
+					cdao.insertCustomer(customer);
 				} else {
 					System.out.println("es gibt keinen standort mit dieser fikuid");
 					return;
 				}
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

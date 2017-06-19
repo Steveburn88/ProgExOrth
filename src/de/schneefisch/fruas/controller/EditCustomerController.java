@@ -1,15 +1,11 @@
 package de.schneefisch.fruas.controller;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-import de.schneefisch.fruas.database.DBConnector;
+import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Salutation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -82,11 +78,10 @@ public class EditCustomerController  {
 				roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
 		
 		try {
-			DBConnector dbc = new DBConnector();
-			int updated = dbc.updateCustomer(updatedCustomer);
+			CustomerDAO cdao = new CustomerDAO();
+			int updated = cdao.updateCustomer(updatedCustomer);
 			System.out.println("affected rows: "+ updated);
 		} catch ( Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import de.schneefisch.fruas.database.DBConnector;
+import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,8 +51,10 @@ public class SearchCustomerController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		try {
-			DBConnector dbc = new DBConnector();
-			List<Customer> customerList = dbc.selectAllCustomers();
+			CustomerDAO cdao = new CustomerDAO();
+			List<Customer> customerList = cdao.selectAllCustomers();
+			/*DBConnector dbc = new DBConnector();
+			List<Customer> customerList = dbc.selectAllCustomers();*/
 			customerList.stream().forEach(System.out::println);
 			list.addAll(customerList);
 		} catch (Exception e) {
@@ -83,9 +85,9 @@ public class SearchCustomerController implements Initializable{
 			} else {
 				Customer getsRemoved = table.getSelectionModel().getSelectedItem();
 				try {
-					DBConnector dbc = new DBConnector();
+					CustomerDAO cdao = new CustomerDAO();					
 					int custId = getsRemoved.getId();
-					int removed = dbc.deleteCustomer(custId);
+					int removed =cdao.deleteCustomer(custId);					
 					if(removed == 1 ) {
 						list.remove(getsRemoved);
 					}					
@@ -100,9 +102,9 @@ public class SearchCustomerController implements Initializable{
 	private void searchCustomer() {
 		if(idField.getText().length() > 0) {
 			try {
-				DBConnector dbc = new DBConnector();
+				CustomerDAO cdao = new CustomerDAO();
 				int custId = Integer.parseInt(idField.getText());
-				Customer customer = dbc.searchCustomerById(custId);
+				Customer customer = cdao.searchCustomerById(custId);
 				list.clear();
 				list.add(customer);
 			} catch (Exception e) {
@@ -110,8 +112,8 @@ public class SearchCustomerController implements Initializable{
 			}
 		} else if (nameField.getText().length() > 0) {
 			try {
-				DBConnector dbc = new DBConnector();
-				List<Customer> customerList = dbc.searchCustomersByName(nameField.getText());
+				CustomerDAO cdao = new CustomerDAO();
+				List<Customer> customerList = cdao.searchCustomersByName(nameField.getText());
 				list.clear();
 				list.addAll(customerList);
 			} catch (Exception e) {
@@ -120,8 +122,8 @@ public class SearchCustomerController implements Initializable{
 		}
 		else if(idField.getText().length() == 0 && nameField.getText().length() == 0) {
 			try {
-				DBConnector dbc = new DBConnector();
-				List<Customer> customerList = dbc.selectAllCustomers();
+				CustomerDAO cdao = new CustomerDAO();
+				List<Customer> customerList = cdao.selectAllCustomers();
 				list.clear();
 				list.addAll(customerList);
 			} catch (Exception e) {
@@ -139,7 +141,6 @@ public class SearchCustomerController implements Initializable{
 				System.out.println("nur einen Kunden markieren!");
 			} else {
 				Customer getsEdited = table.getSelectionModel().getSelectedItem();				
-				System.out.println(getsEdited.getId());
 				showEditCustomer(getsEdited);				
 			}
 		}
@@ -156,7 +157,6 @@ public class SearchCustomerController implements Initializable{
 			e.printStackTrace();
 		}
 		EditCustomerController controller = loader.<EditCustomerController>getController();
-		System.out.println(customer.getId());
 		controller.initData(customer);
 		stage.show();
 	}

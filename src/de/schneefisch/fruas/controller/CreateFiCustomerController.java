@@ -1,6 +1,8 @@
 package de.schneefisch.fruas.controller;
 
-import de.schneefisch.fruas.database.DBConnector;
+import de.schneefisch.fruas.database.CustomerDAO;
+import de.schneefisch.fruas.database.FiCustomerDAO;
+import de.schneefisch.fruas.database.LocationDAO;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.FiCustomer;
 import de.schneefisch.fruas.model.Location;
@@ -38,15 +40,16 @@ public class CreateFiCustomerController {
 		System.out.println(fiCustomer);	
 		System.out.println("Location created:");
 		System.out.println(location);
+		CustomerDAO cdao = new CustomerDAO();
+		FiCustomerDAO fcdao = new FiCustomerDAO();
+		LocationDAO ldao = new LocationDAO();
 		
-		DBConnector dbc = new DBConnector();
-		
-		FiCustomer insertedFi = dbc.insertFiCustomer(fiCustomer);
+		FiCustomer insertedFi = fcdao.insertFiCustomer(fiCustomer);
 		location.setFiKuId(insertedFi.getId());
-		Location insertedLoc = dbc.insertLocation(location);
+		Location insertedLoc = ldao.insertLocation(location);
 		customer.setFiKuId(insertedFi.getId());
 		customer.setLocationId(insertedLoc.getId());
-		Customer insertedCust = dbc.insertCustomer(customer);
+		cdao.insertCustomer(customer);
 		Stage stage = (Stage) createFiCustomerButton.getScene().getWindow();
 	    stage.close();
 		

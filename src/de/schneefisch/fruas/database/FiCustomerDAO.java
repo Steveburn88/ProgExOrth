@@ -1,12 +1,11 @@
 package de.schneefisch.fruas.database;
 
+import com.mysql.jdbc.Statement;
+import de.schneefisch.fruas.model.FiCustomer;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.mysql.jdbc.Statement;
-
-import de.schneefisch.fruas.model.FiCustomer;
 
 public class FiCustomerDAO {
 

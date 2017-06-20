@@ -1,15 +1,14 @@
 package de.schneefisch.fruas.database;
 
+import com.mysql.jdbc.Statement;
+import de.schneefisch.fruas.model.Customer;
+import de.schneefisch.fruas.model.Salutation;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.jdbc.Statement;
-
-import de.schneefisch.fruas.model.Customer;
-import de.schneefisch.fruas.model.Salutation;
 
 public class CustomerDAO {
 
@@ -31,7 +30,7 @@ public class CustomerDAO {
 				+ "abteilungPersonenkunde = ?, "
 				+ "anredePersonenkunde = ?, "
 				+ "emailPersonenkunde = ?, "
-				+ "geb‰udenummerPersonenkunde = ?, "
+				+ "geb√§udenummerPersonenkunde = ?, "
 				+ "zimmernummerPersonenkunde = ?, "
 				+ "faxPersonenkunde = ? "
 				+ "where idPersonenkunde = ?;";
@@ -76,7 +75,7 @@ public class CustomerDAO {
 			customer =  new Customer(rs.getInt("idPersonenkunde"), rs.getInt("idFirmenkunde"), rs.getInt("idStandort"), salutation, rs.getString("vornamePersonenkunde"),
 					rs.getString("nachnamePersonenkunde"),	rs.getString("telefonPersonenkunde"),	rs.getString("emailPersonenkunde"),
 					 rs.getString("positionPersonenkunde"), rs.getString("abteilungPersonenkunde"),
-					 rs.getString("geb‰udenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
+					 rs.getString("geb√§udenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
 		}
 		return customer;
 	
@@ -101,7 +100,7 @@ public class CustomerDAO {
 			Customer customer = new Customer(rs.getInt("idPersonenkunde"), rs.getInt("idFirmenkunde"), rs.getInt("idStandort"), salutation, rs.getString("vornamePersonenkunde"),
 					rs.getString("nachnamePersonenkunde"),	rs.getString("telefonPersonenkunde"),	rs.getString("emailPersonenkunde"),
 					 rs.getString("positionPersonenkunde"), rs.getString("abteilungPersonenkunde"),
-					 rs.getString("geb‰udenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
+					 rs.getString("geb√§udenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
 			customerList.add(customer);
 		}
 		return customerList;
@@ -122,7 +121,7 @@ public class CustomerDAO {
 			Customer customer = new Customer(rs.getInt("idPersonenkunde"), rs.getInt("idFirmenkunde"), rs.getInt("idStandort"), salutation, rs.getString("vornamePersonenkunde"),
 					rs.getString("nachnamePersonenkunde"),	rs.getString("telefonPersonenkunde"),	rs.getString("emailPersonenkunde"),
 					 rs.getString("positionPersonenkunde"), rs.getString("abteilungPersonenkunde"),
-					 rs.getString("geb‰udenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
+					 rs.getString("geb√§udenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
 			customerList.add(customer);
 		}
 		return customerList;
@@ -132,7 +131,7 @@ public class CustomerDAO {
 
 		String query = "insert into personenkunde (vornamePersonenkunde, nachnamePersonenkunde, telefonPersonenkunde, "
 				+ "positionPersonenkunde, abteilungPersonenkunde, anredePersonenkunde, "
-				+ "emailPersonenkunde, geb‰udenummerPersonenkunde, zimmernummerPersonenkunde, faxPersonenkunde,"
+				+ "emailPersonenkunde, geb√§udenummerPersonenkunde, zimmernummerPersonenkunde, faxPersonenkunde,"
 				+ "idFirmenkunde, idStandort)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

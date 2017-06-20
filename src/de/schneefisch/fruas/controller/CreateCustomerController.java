@@ -1,7 +1,5 @@
 package de.schneefisch.fruas.controller;
 
-import java.io.IOException;
-
 import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.LocationDAO;
 import de.schneefisch.fruas.model.Customer;
@@ -16,6 +14,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class CreateCustomerController {
 	@FXML
@@ -100,7 +100,7 @@ public class CreateCustomerController {
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des Neuer FiKunde Fensters!");
+			System.out.println("Fehler beim Ã¶ffnen des Neuer FiKunde Fensters!");
 			e.printStackTrace();
 		}
 		CreateFiCustomerController controller = loader.<CreateFiCustomerController>getController();

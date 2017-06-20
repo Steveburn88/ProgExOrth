@@ -144,6 +144,26 @@ public class SearchProductController implements Initializable {
 		stage.show();
 	}
 
+	@FXML
+	private void deleteProduct() {
+		if(!table.getSelectionModel().isEmpty()) {
+			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("Bitte nur ein Produkt markieren!");
+			} else {
+				Product getsRemoved = table.getSelectionModel().getSelectedItem();
+				try {
+					ProductDAO pdao = new ProductDAO();
+					int prodId = getsRemoved.getId();
+					int removed = pdao.deleteProduct(prodId);
+					if(removed == 1 ) {
+						list.remove(getsRemoved);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	@FXML
 	private void cancel(ActionEvent event) {

@@ -5,10 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.CreateProductController">
-    <bottom>
-        <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-    </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.EditProductController">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -40,7 +37,7 @@
                 <Label text="Systemvoraussetzungen" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
                     <children>
-                        <Button fx:id="createProductButton" mnemonicParsing="false" onAction="#createProduct" text="Erstellen" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveProduct" text="Speichern" />
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
                     </children>
                 </HBox>

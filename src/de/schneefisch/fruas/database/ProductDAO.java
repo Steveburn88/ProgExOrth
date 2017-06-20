@@ -27,12 +27,13 @@ public class ProductDAO {
                 + "versionsnummerProdukt= ?, "
                 + "preisProdukt = ?, "
                 + "systemvoraussetzungProdukt = ?, "
-                + "where idPersonenkunde = ?;";
+                + "where idProdukt = ?;";
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         statement.setString(1, product.getName());
         statement.setString(2, product.getVersion());
         statement.setFloat(3, product.getPrice());
         statement.setString(4, product.getRequirements());
+        statement.setInt(5, product.getId());
         int updated = statement.executeUpdate();
         return updated;
     }
@@ -89,7 +90,7 @@ public class ProductDAO {
     public Product insertProduct(Product product) throws SQLException {
 
         String query = "insert into produkt (nameProdukt, versionsnummerProdukt, preisProdukt, "
-        + "systemvoraussetzungProdukt)" + "values(?, ?, ?, ?);";
+                + "systemvoraussetzungProdukt)" + " values(?, ?, ?, ?);";
 
         PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 

@@ -153,7 +153,7 @@ public class SearchCustomerController implements Initializable{
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des kundendaten bearbeiten Fensters!");
+			System.out.println("Fehler beim Ã¶ffnen des kundendaten bearbeiten Fensters!");
 			e.printStackTrace();
 		}
 		EditCustomerController controller = loader.<EditCustomerController>getController();

@@ -30,7 +30,7 @@ public class MainWindowController {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des Kundensuche Fensters!");
+			System.out.println("Fehler beim Ã¶ffnen des Kundensuche Fensters!");
 			e.printStackTrace();
 		}
 	}
@@ -45,7 +45,7 @@ public class MainWindowController {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des Neuer Kunde Fensters!");
+			System.out.println("Fehler beim Ã¶ffnen des Neuer Kunde Fensters!");
 			e.printStackTrace();
 		}
 
@@ -61,7 +61,7 @@ public class MainWindowController {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des produktsuche Fensters!");
+			System.out.println("Fehler beim ï¿½ffnen des produktsuche Fensters!");
 			e.printStackTrace();
 		}
 	}
@@ -76,7 +76,7 @@ public class MainWindowController {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des angebotssuche Fensters!");
+			System.out.println("Fehler beim ï¿½ffnen des angebotssuche Fensters!");
 			e.printStackTrace();
 		}
 	}
@@ -91,7 +91,7 @@ public class MainWindowController {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des rechnungssuche Fensters!");
+			System.out.println("Fehler beim ï¿½ffnen des rechnungssuche Fensters!");
 			e.printStackTrace();
 		}
 	}
@@ -106,7 +106,7 @@ public class MainWindowController {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des lieferscheinsuche Fensters!");
+			System.out.println("Fehler beim ï¿½ffnen des lieferscheinsuche Fensters!");
 			e.printStackTrace();
 		}
 	}

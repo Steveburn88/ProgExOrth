@@ -32,9 +32,9 @@
                 <TextField fx:id="price" GridPane.rowIndex="2" />
                 <Label text="Preis" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="start" GridPane.rowIndex="3" />
-                <Label text="Start Datum" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Start Datum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="end" GridPane.rowIndex="4" />
-                <Label text="End Datum" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="End Datum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
                     <children>
                         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveMaintenance" text="Speichern" />

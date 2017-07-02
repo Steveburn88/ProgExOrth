@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.SearchMaintenanceController">
+    <bottom>
+        <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="createButton" mnemonicParsing="false" onAction="#createMaintenance" text="Erstellen" />
+                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchMaintenance" text="Suchen" />
+                <Button fx:id="editButton" mnemonicParsing="false"  onAction="#editMaintenance" text="Bearbeiten" />
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteMaintenance" text="Löschen" />
+                <Button mnemonicParsing="false" text="Lizenzen anzeigen" />
+                <Button mnemonicParsing="false" text="Lizenz hinzufügen" />
+                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+            </children>
+        </HBox>
+    </bottom>
+    <top>
+        <VBox prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="31.0" prefWidth="600.0">
+                    <children>
+                        <TextField fx:id="idField" />
+                        <Label text="ID" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="id" prefWidth="38.0" text="id" />
+                <TableColumn fx:id="info" prefWidth="112.0" text="Info" />
+                <TableColumn fx:id="price" prefWidth="75.0" text="Preis" />
+                <TableColumn fx:id="start" prefWidth="299.0" text="Start Datum" />
+                <TableColumn fx:id="end" prefWidth="299.0" text="End Datum" />
+            </columns></TableView>
+    </center>
+</BorderPane>

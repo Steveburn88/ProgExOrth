@@ -33,9 +33,9 @@
       <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="id" prefWidth="38.0" text="id" />
-            <TableColumn fx:id="name" prefWidth="112.0" text="Bezahlt am" />
-            <TableColumn fx:id="version" prefWidth="75.0" text="Betrag" />
-            <TableColumn fx:id="price" prefWidth="156.0" text="LieferscheinID" />
+            <TableColumn fx:id="paid" prefWidth="112.0" text="Bezahlt am" />
+            <TableColumn fx:id="price" prefWidth="75.0" text="Betrag" />
+            <TableColumn fx:id="deliveryNoteID" prefWidth="156.0" text="LieferscheinID" />
          </columns></TableView>
    </center>
 </BorderPane>

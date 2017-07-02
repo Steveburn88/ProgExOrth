@@ -65,6 +65,21 @@ public class MainWindowController {
 			e.printStackTrace();
 		}
 	}
+
+	@FXML
+	private void searchMaintenance(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchMaintenance.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Maintenancesuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim Öffnen des Maintenancesuche Fensters!");
+			e.printStackTrace();
+		}
+	}
 	
 	@FXML
 	private void searchOffer(ActionEvent event) {

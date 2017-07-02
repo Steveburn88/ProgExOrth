@@ -25,7 +25,11 @@ private DBConnector dbc;
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
 		statement.setInt(1, fiCustomerId);
 		ResultSet rs = statement.executeQuery();
-		FiCustomer fiCustomer = new FiCustomer(rs.getInt("idFirmenkunde"), rs.getString("nameFirmenkunde"));
+		FiCustomer fiCustomer = null;
+		if(rs.next()) {
+			fiCustomer  = new FiCustomer(rs.getInt("idFirmenkunde"), rs.getString("nameFirmenkunde"));
+		}
+		
 		return fiCustomer;
 	}
 

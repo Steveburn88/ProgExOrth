@@ -9,13 +9,14 @@
    <bottom>
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="createButton" mnemonicParsing="false" text="Erstellen" />
-            <Button fx:id="searchButton" mnemonicParsing="false"  text="Suchen" />
-            <Button fx:id="editButton" mnemonicParsing="false"  text="Bearbeiten" />
-            <Button fx:id="deleteButton" mnemonicParsing="false"  text="Löschen" />
+            <Button fx:id="createButton" mnemonicParsing="false" onAction="#createOffer" text="Erstellen" />
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchOffer" text="Suchen" />
+            <Button fx:id="editButton" mnemonicParsing="false" text="Bearbeiten" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" text="Löschen" />
             <Button mnemonicParsing="false" text="Positionen anzeigen" />
-            <Button mnemonicParsing="false" text="Position hinzufügen" />
+            <Button fx:id="addPositionButton" mnemonicParsing="false" onAction="#showCreateOfferPosition" text="Position hinzufügen" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+            <Button fx:id="createPDFButton" mnemonicParsing="false" onAction="#createPDF" text="PDF" />
          </children>
       </HBox>
    </bottom>
@@ -26,10 +27,8 @@
                <children>
                   <TextField fx:id="idField" />
                   <Label text="ID" />
-                  <TextField />
+                  <TextField fx:id="customerIdField" />
                   <Label text="KundenID" />
-                  <TextField fx:id="nameField" />
-                  <Label text="Kundenname" />
                </children>
             </HBox>
          </children>
@@ -39,8 +38,8 @@
       <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="id" prefWidth="38.0" text="id" />
-            <TableColumn fx:id="name" prefWidth="112.0" text="KundenID" />
-            <TableColumn fx:id="version" prefWidth="195.0" text="Gültigkeit" />
+            <TableColumn fx:id="customerId" prefWidth="112.0" text="KundenID" />
+            <TableColumn fx:id="validity" prefWidth="195.0" text="Gültigkeit" />
          </columns></TableView>
    </center>
 </BorderPane>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.CreateOfferPositionController">
+    <bottom>
+        <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    </bottom>
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextField fx:id="productIdField" GridPane.rowIndex="1" />
+                <Label text="ProduktID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="amountField" GridPane.rowIndex="2" />
+                <Label text="Anzahl" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                    <children>
+                        <Button fx:id="createOfferPositionButton" mnemonicParsing="false" onAction="#createOfferPosition" text="Erstellen" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>

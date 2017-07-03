@@ -18,6 +18,7 @@ public class MainWindowController {
 	@FXML private Button searchOfferButton;
 	@FXML private Button searchBillButton;
 	@FXML private Button searchDeliveryNoteButton;
+	@FXML private Button searchLicenseButton;
 
 	
 	@FXML
@@ -122,6 +123,20 @@ public class MainWindowController {
 			stage.show();
 		} catch (IOException e) {
 			System.out.println("Fehler beim �ffnen des lieferscheinsuche Fensters!");
+			e.printStackTrace();
+		}
+	}
+	@FXML
+	private void searchLicense(ActionEvent event) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("searchLicenses.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("LizenzSuche");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			System.out.println("Fehler beim �ffnen des lizenzsuche Fensters!");
 			e.printStackTrace();
 		}
 	}

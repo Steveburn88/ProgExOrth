@@ -39,6 +39,8 @@
             <Label text="Angebotssuche, Angebote hinzufügen/bearbeiten/löschen" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Rechnungssuche" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Lieferscheinsuche" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="searchLicenseButton" mnemonicParsing="false" onAction="#searchLicense" prefHeight="25.0" prefWidth="152.0" text="Lizenzen" GridPane.rowIndex="7" />
+            <Label text="Lizenzsuche" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </center>

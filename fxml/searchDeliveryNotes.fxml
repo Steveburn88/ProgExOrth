@@ -10,9 +10,10 @@
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="searchButton" mnemonicParsing="false" text="Suchen" />
+            <Button fx:id="createButton" mnemonicParsing="false" onAction="#createDeliveryNote" text="Erstellen" />
             <Button fx:id="editButton" mnemonicParsing="false" text="Bearbeiten" />
             <Button fx:id="deleteButton" mnemonicParsing="false" text="Löschen" />
-            <Button mnemonicParsing="false" text="Positionen anzeigen" />
+            <Button fx:id="searchPositionsButton" mnemonicParsing="false" onAction="#searchDeliveryNotePositions" text="Positionen anzeigen" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
          </children>
       </HBox>
@@ -33,7 +34,7 @@
       <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="id" prefWidth="38.0" text="id" />
-            <TableColumn fx:id="name" prefWidth="112.0" text="Datum" />
+            <TableColumn fx:id="date" prefWidth="112.0" text="Datum" />
          </columns></TableView>
    </center>
 </BorderPane>

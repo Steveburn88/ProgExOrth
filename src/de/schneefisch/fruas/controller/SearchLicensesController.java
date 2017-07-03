@@ -1,14 +1,6 @@
 package de.schneefisch.fruas.controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.LicenseDAO;
-import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.License;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +16,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class SearchLicensesController implements Initializable{
 
@@ -83,7 +81,7 @@ public class SearchLicensesController implements Initializable{
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim Öffnen des Neuen Lizenz Fensters!");
+			System.out.println("Fehler beim Oeffnen des Neuen Lizenz Fensters!");
 			e.printStackTrace();
 		}
 	}

@@ -59,7 +59,7 @@
             <TextField fx:id="email" GridPane.rowIndex="6" />
             <Label text="Email" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="buildingNumber" GridPane.rowIndex="7" />
-            <Label text="Gebäudenummer" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Gebaeudenummer" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="roomNumber" GridPane.rowIndex="8" />
             <Label text="Zimmernummer" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="faxNumber" GridPane.rowIndex="9" />

@@ -1,13 +1,13 @@
 package de.schneefisch.fruas.database;
 
+import de.schneefisch.fruas.model.License;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.schneefisch.fruas.model.License;
 
 public class LicenseDAO {
 	private DBConnector dbc;
@@ -28,7 +28,7 @@ public class LicenseDAO {
 		ResultSet rs = statement.executeQuery();
 		while(rs.next()) {
 			License license = new License(rs.getInt("idLizenz"), rs.getInt("idPersonenkunde"), rs.getInt("idProdukt"), 
-					rs.getString("installationsschlüsselLizenz"), rs.getBoolean("verkauftStatusLizenz"), rs.getFloat("rabattLizenz"), 
+					rs.getString("installationsschluesselLizenz"), rs.getBoolean("verkauftStatusLizenz"), rs.getFloat("rabattLizenz"),
 					rs.getDate("verkaufsdatumLizenz"), rs.getDate("ablaufdatumLizenz"), rs.getInt("idMaintenance"));
 			licenseList.add(license);			
 		}
@@ -37,7 +37,7 @@ public class LicenseDAO {
 
 	public License insertLicense(License license) throws SQLException {
 
-        String query = "insert into lizenz (idProdukt, installationsschlüsselLizenz)" + " values(?, ?);";
+        String query = "insert into lizenz (idProdukt, installationsschluesselLizenz)" + " values(?, ?);";
 
         PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 

@@ -75,7 +75,7 @@ public class SearchProductController implements Initializable {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim Öffnen des Neuen Produkt Fensters!");
+			System.out.println("Fehler beim Oeffnen des Neuen Produkt Fensters!");
 			e.printStackTrace();
 		}
 
@@ -136,7 +136,7 @@ public class SearchProductController implements Initializable {
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim Öffnen des Produktdaten bearbeiten Fensters!");
+			System.out.println("Fehler beim Oeffnen des Produktdaten bearbeiten Fensters!");
 			e.printStackTrace();
 		}
 		EditProductController controller = loader.<EditProductController>getController();

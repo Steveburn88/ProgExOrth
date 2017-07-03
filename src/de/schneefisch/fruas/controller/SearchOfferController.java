@@ -1,14 +1,6 @@
 package de.schneefisch.fruas.controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.OfferDAO;
-import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Offer;
 import de.schneefisch.fruas.transactions.OfferPDFCreator;
 import javafx.collections.FXCollections;
@@ -25,6 +17,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class SearchOfferController implements Initializable {
 
@@ -85,7 +83,7 @@ public class SearchOfferController implements Initializable {
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim Öffnen des angebotsPositions Fensters!");
+			System.out.println("Fehler beim Oeffnen des angebotsPositions Fensters!");
 			e.printStackTrace();
 		}
 		CreateOfferPositionController controller = loader.<CreateOfferPositionController>getController();
@@ -103,7 +101,7 @@ public class SearchOfferController implements Initializable {
 				 offer = table.getSelectionModel().getSelectedItem();	
 			}
 		}
-		System.out.println("erstelle pdf für angebot " + offer.getId() + ".");
+		System.out.println("erstelle pdf fuer angebot " + offer.getId() + ".");
 		OfferPDFCreator oc = new OfferPDFCreator(offer);
 		oc.createPDF();
 	}
@@ -154,7 +152,7 @@ public class SearchOfferController implements Initializable {
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
-			System.out.println("Fehler beim Öffnen des Angeboterstellen Fensters!");
+			System.out.println("Fehler beim Oeffnen des Angeboterstellen Fensters!");
 			e.printStackTrace();
 		}
 	}

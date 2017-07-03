@@ -1,17 +1,13 @@
 package de.schneefisch.fruas.database;
 
+import de.schneefisch.fruas.model.Offer;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.schneefisch.fruas.model.Customer;
-import de.schneefisch.fruas.model.Maintenance;
-import de.schneefisch.fruas.model.Offer;
-import de.schneefisch.fruas.model.Product;
-import de.schneefisch.fruas.model.Salutation;
 
 public class OfferDAO {
 	 
@@ -32,7 +28,7 @@ public class OfferDAO {
 	    	ResultSet rs = statement.executeQuery();
 	    	List<Offer> offerList = new ArrayList<Offer>();
 	    	while(rs.next()) {				
-				Offer offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gültigkeitAngebot"));				
+				Offer offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gueltigkeitAngebot"));
 				offerList.add(offer);
 			}
 			return offerList;
@@ -45,7 +41,7 @@ public class OfferDAO {
 			ResultSet rs = statement.executeQuery();
 			Offer offer = new Offer();
 			while(rs.next()) {
-				offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gültigkeitAngebot"));			
+				offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gueltigkeitAngebot"));
 			}
 			return offer;		
 		}
@@ -56,7 +52,7 @@ public class OfferDAO {
 	        PreparedStatement statement = dbc.getConnection().prepareStatement(query);
 	        ResultSet rs = statement.executeQuery();
 	        while(rs.next()) {
-	            Offer offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gültigkeitAngebot"));
+	            Offer offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gueltigkeitAngebot"));
 	            offerList.add(offer);
 	        }
 	        return offerList;
@@ -64,7 +60,7 @@ public class OfferDAO {
 	    
 	    public Offer insertOffer(Offer offer) throws SQLException {
 
-	        String query = "insert into angebot (idPersonenkunde, gültigkeitAngebot) "
+	        String query = "insert into angebot (idPersonenkunde, gueltigkeitAngebot) "
 	        		+ " values(?, ?);";
 
 	        PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

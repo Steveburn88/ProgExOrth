@@ -30,7 +30,7 @@ public class CustomerDAO {
 				+ "abteilungPersonenkunde = ?, "
 				+ "anredePersonenkunde = ?, "
 				+ "emailPersonenkunde = ?, "
-				+ "gebäudenummerPersonenkunde = ?, "
+				+ "gebaeudenummerPersonenkunde = ?, "
 				+ "zimmernummerPersonenkunde = ?, "
 				+ "faxPersonenkunde = ? "
 				+ "where idPersonenkunde = ?;";
@@ -75,7 +75,7 @@ public class CustomerDAO {
 			customer =  new Customer(rs.getInt("idPersonenkunde"), rs.getInt("idFirmenkunde"), rs.getInt("idStandort"), salutation, rs.getString("vornamePersonenkunde"),
 					rs.getString("nachnamePersonenkunde"),	rs.getString("telefonPersonenkunde"),	rs.getString("emailPersonenkunde"),
 					 rs.getString("positionPersonenkunde"), rs.getString("abteilungPersonenkunde"),
-					 rs.getString("gebäudenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
+					 rs.getString("gebaeudenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
 		}
 		return customer;
 	
@@ -100,7 +100,7 @@ public class CustomerDAO {
 			Customer customer = new Customer(rs.getInt("idPersonenkunde"), rs.getInt("idFirmenkunde"), rs.getInt("idStandort"), salutation, rs.getString("vornamePersonenkunde"),
 					rs.getString("nachnamePersonenkunde"),	rs.getString("telefonPersonenkunde"),	rs.getString("emailPersonenkunde"),
 					 rs.getString("positionPersonenkunde"), rs.getString("abteilungPersonenkunde"),
-					 rs.getString("gebäudenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
+					 rs.getString("gebaeudenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
 			customerList.add(customer);
 		}
 		return customerList;
@@ -121,7 +121,7 @@ public class CustomerDAO {
 			Customer customer = new Customer(rs.getInt("idPersonenkunde"), rs.getInt("idFirmenkunde"), rs.getInt("idStandort"), salutation, rs.getString("vornamePersonenkunde"),
 					rs.getString("nachnamePersonenkunde"),	rs.getString("telefonPersonenkunde"),	rs.getString("emailPersonenkunde"),
 					 rs.getString("positionPersonenkunde"), rs.getString("abteilungPersonenkunde"),
-					 rs.getString("gebäudenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
+					 rs.getString("gebaeudenummerPersonenkunde"), rs.getString("zimmernummerPersonenkunde"), rs.getString("faxPersonenkunde"));
 			customerList.add(customer);
 		}
 		return customerList;
@@ -131,7 +131,7 @@ public class CustomerDAO {
 
 		String query = "insert into personenkunde (vornamePersonenkunde, nachnamePersonenkunde, telefonPersonenkunde, "
 				+ "positionPersonenkunde, abteilungPersonenkunde, anredePersonenkunde, "
-				+ "emailPersonenkunde, gebäudenummerPersonenkunde, zimmernummerPersonenkunde, faxPersonenkunde,"
+				+ "emailPersonenkunde, gebaeudenummerPersonenkunde, zimmernummerPersonenkunde, faxPersonenkunde,"
 				+ "idFirmenkunde, idStandort)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

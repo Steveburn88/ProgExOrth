@@ -1,26 +1,15 @@
 package de.schneefisch.fruas.transactions;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-
+import de.schneefisch.fruas.database.*;
+import de.schneefisch.fruas.model.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import de.schneefisch.fruas.database.CustomerDAO;
-import de.schneefisch.fruas.database.FiCustomerDAO;
-import de.schneefisch.fruas.database.LocationDAO;
-import de.schneefisch.fruas.database.OfferPositionDAO;
-import de.schneefisch.fruas.database.ProductDAO;
-import de.schneefisch.fruas.model.Customer;
-import de.schneefisch.fruas.model.FiCustomer;
-import de.schneefisch.fruas.model.Location;
-import de.schneefisch.fruas.model.Offer;
-import de.schneefisch.fruas.model.OfferPosition;
-import de.schneefisch.fruas.model.Product;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class OfferPDFCreator {
 
@@ -106,7 +95,7 @@ public class OfferPDFCreator {
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(300, 540);
-			content.showText("Angebot " + offer.getId() +" für KN " + offer.getCustomerId());
+			content.showText("Angebot " + offer.getId() +" fuer KN " + offer.getCustomerId());
 			content.endText();
 			
 			content.beginText();
@@ -185,14 +174,14 @@ public class OfferPDFCreator {
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, yoffset);
-			content.showText("- Zahlung erfolgt 30 Tage netto. Dieses Angebot ist freibleibend und gilt bis" + offer.getValidity());
+			content.showText("- Zahlung erfolgt 30 Tage netto. Dieses Angebot ist freibleibend und gilt bis " + offer.getValidity());
 			content.endText();
 			yoffset-=40;
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, yoffset);
-			content.showText("Mit freundlichen Grüßen");
+			content.showText("Mit freundlichen Gruessen");
 			content.endText();
 			yoffset-=20;
 			

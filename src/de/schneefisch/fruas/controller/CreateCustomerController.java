@@ -100,7 +100,7 @@ public class CreateCustomerController {
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des Neuer FiKunde Fensters!");
+			System.out.println("Fehler beim Oeffnen des Neuer FiKunde Fensters!");
 			e.printStackTrace();
 		}
 		CreateFiCustomerController controller = loader.<CreateFiCustomerController>getController();

@@ -51,7 +51,7 @@
             <Label text="Position" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Abteilung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Email" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Gebäudenummer" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Gebaeudenummer" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="Zimmernummer" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Fax" GridPane.columnIndex="1" GridPane.rowIndex="9" />
          </children>

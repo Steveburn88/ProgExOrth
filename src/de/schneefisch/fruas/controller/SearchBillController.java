@@ -102,7 +102,7 @@ public class SearchBillController implements Initializable {
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim Öffnen des Rechnungsdaten bearbeiten Fensters!");
+			System.out.println("Fehler beim Oeffnen des Rechnungsdaten bearbeiten Fensters!");
 			e.printStackTrace();
 		}
 		EditBillController controller = loader.<EditBillController>getController();

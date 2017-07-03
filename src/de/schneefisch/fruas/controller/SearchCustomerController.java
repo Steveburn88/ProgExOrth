@@ -1,10 +1,5 @@
 package de.schneefisch.fruas.controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.model.Customer;
 import javafx.collections.FXCollections;
@@ -20,6 +15,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class SearchCustomerController implements Initializable{
 
@@ -153,7 +153,7 @@ public class SearchCustomerController implements Initializable{
 		try {
 			stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			System.out.println("Fehler beim öffnen des kundendaten bearbeiten Fensters!");
+			System.out.println("Fehler beim Oeffnen des kundendaten bearbeiten Fensters!");
 			e.printStackTrace();
 		}
 		EditCustomerController controller = loader.<EditCustomerController>getController();

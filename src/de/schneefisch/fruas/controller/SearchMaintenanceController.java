@@ -73,7 +73,7 @@ public class SearchMaintenanceController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            System.out.println("Fehler beim Öffnen des Neuen Maintenance Fensters!");
+            System.out.println("Fehler beim Oeffnen des Neuen Maintenance Fensters!");
             e.printStackTrace();
         }
 
@@ -124,7 +124,7 @@ public class SearchMaintenanceController implements Initializable {
         try {
             stage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
-            System.out.println("Fehler beim Öffnen des Maintenancedaten bearbeiten Fensters!");
+            System.out.println("Fehler beim Oeffnen des Maintenancedaten bearbeiten Fensters!");
             e.printStackTrace();
         }
         EditMaintenanceController controller = loader.<EditMaintenanceController>getController();

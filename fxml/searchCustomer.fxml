@@ -44,7 +44,7 @@
             <TableColumn fx:id="position" prefWidth="75.0" text="Position" />
             <TableColumn fx:id="department" prefWidth="75.0" text="Abteilung" />
             <TableColumn fx:id="roomNumber" prefWidth="75.0" text="Raum" />
-            <TableColumn fx:id="buildingNumber" prefWidth="75.0" text="Gebäude" />
+            <TableColumn fx:id="buildingNumber" prefWidth="75.0" text="Gebaeude" />
             <TableColumn fx:id="faxNumber" prefWidth="75.0" text="Fax" />
          </columns></TableView>
    </center>

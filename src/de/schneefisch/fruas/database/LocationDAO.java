@@ -27,14 +27,14 @@ public class LocationDAO {
 		Location location = null;
 		while(rs.next()) {
 			location = new Location(rs.getInt("idStandort"), rs.getInt("idFirmenkunde"), rs.getString("plzStandort"), rs.getString("stadtStandort"), rs.getString("postfachStandort"),
-					rs.getString("straﬂeStandort"), rs.getString("hausnummerStandort"));
+					rs.getString("strasseStandort"), rs.getString("hausnummerStandort"));
 		}	
 		return location;
 	}
 	
 	public Location insertLocation(Location location) throws SQLException {
 
-		String query = "insert into standort (idFirmenkunde, plzStandort, stadtStandort, postFachStandort, straﬂeStandort, hausnummerStandort)"
+		String query = "insert into standort (idFirmenkunde, plzStandort, stadtStandort, postFachStandort, strasseStandort, hausnummerStandort)"
 				+ " values (?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

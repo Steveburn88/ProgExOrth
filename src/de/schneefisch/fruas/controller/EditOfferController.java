@@ -8,12 +8,15 @@ import de.schneefisch.fruas.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EditOfferController {
@@ -22,6 +25,8 @@ public class EditOfferController {
     private Button addButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private Button refreshButton;
     @FXML
     private Button cancelButton;
 
@@ -36,12 +41,12 @@ public class EditOfferController {
     private TableColumn<OfferPosition, Integer> productId;
     @FXML
     private TableColumn<OfferPosition, Integer> amount;
-    @FXML
-    private TableColumn<Product, Float> priceUnit;
-    @FXML
-    private TableColumn<OfferPosition, Float> priceSum;
+
+    private Offer offer;
 
     void initialize(Offer offer) {
+        this.offer = offer;
+        list.clear();
         try {
             OfferPositionDAO odao = new OfferPositionDAO();
             List<OfferPosition> offerPosList = odao.searchOfferPositionsByOfferId(offer.getId());
@@ -58,20 +63,53 @@ public class EditOfferController {
         posId.setCellValueFactory(new PropertyValueFactory<OfferPosition, Integer>("id"));
         productId.setCellValueFactory(new PropertyValueFactory<OfferPosition, Integer>("productId"));
         amount.setCellValueFactory(new PropertyValueFactory<OfferPosition, Integer>("count"));
-        //priceUnit.setCellValueFactory(new PropertyValueFactory<Product, Float>("priceUnit"));
-        //priceSum.setCellValueFactory(new PropertyValueFactory<OfferPosition, Float>("priceSum"));
         table.setItems(list);
-        //table.setItems(listprod);
     }
 
     @FXML
     private void addPos() {
-        //TODO: implement
+        Offer offer = this.offer;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("createOfferPosition.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Neue AngebotsPosition");
+        try {
+            stage.setScene(new Scene(loader.load()));
+        } catch (IOException e) {
+            System.out.println("Fehler beim Oeffnen des angebotsPositions Fensters!");
+            e.printStackTrace();
+        }
+        CreateOfferPositionController controller = loader.<CreateOfferPositionController>getController();
+        controller.initData(offer);
+        stage.show();
     }
 
     @FXML
     private void deletePos() {
-        //TODO: implement
+        if(!table.getSelectionModel().isEmpty()) {
+            if(table.getSelectionModel().getSelectedItems().size() > 1) {
+                System.out.println("Bitte nur eine Angebotsposition markieren!");
+            } else {
+                OfferPosition getsRemoved = table.getSelectionModel().getSelectedItem();
+                try {
+                    OfferPositionDAO odao = new OfferPositionDAO();
+                    int offPoId = getsRemoved.getId();
+                    int removed = odao.deleteOfferPosition(offPoId);
+                    if(removed == 1 ) {
+                        list.remove(getsRemoved);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void refresh() {
+        Stage stage = (Stage) refreshButton.getScene().getWindow();
+        //table.refresh();
+        this.initialize(offer);
+        stage.show();
     }
 
     @FXML

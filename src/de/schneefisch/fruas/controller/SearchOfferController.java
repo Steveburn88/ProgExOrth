@@ -65,8 +65,8 @@ public class SearchOfferController implements Initializable {
 		customerId.setCellValueFactory(new PropertyValueFactory<Offer, Integer>("customerId"));
 		validity.setCellValueFactory(new PropertyValueFactory<Offer, Date>("validity"));
 		table.setItems(list);
-
 	}
+
 	@FXML
 	private void showCreateOfferPosition() {	
 		Offer offer = new Offer();

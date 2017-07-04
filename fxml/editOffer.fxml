@@ -11,6 +11,7 @@
             <children>
                 <Button fx:id="addButton" mnemonicParsing="false" onAction="#addPos" text="Erstellen" />
                 <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deletePos" text="Löschen" />
+                <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" text="Aktualisieren" />
                 <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
             </children>
         </HBox>

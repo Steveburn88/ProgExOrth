@@ -61,5 +61,13 @@ public class OfferPositionDAO {
 		}
 		return offerPositions;
 	}
+
+	public int deleteOfferPosition(int offerPositionId) throws SQLException {
+		String query = "delete from angebot_pos where idAngebot_pos = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setInt(1, offerPositionId);
+		int removed = statement.executeUpdate();
+		return removed;
+	}
 	
 }

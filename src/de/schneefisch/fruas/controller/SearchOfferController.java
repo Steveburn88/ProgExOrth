@@ -90,6 +90,33 @@ public class SearchOfferController implements Initializable {
 		controller.initData(offer);
 		stage.show();
 	}
+
+	@FXML
+	private void editOffer() {
+		if(!table.getSelectionModel().isEmpty()) {
+			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("Bitte nur ein Angebot markieren!");
+			} else {
+				Offer getsEdited = table.getSelectionModel().getSelectedItem();
+				showEditOfferPosition(getsEdited);
+			}
+		}
+	}
+
+	private void showEditOfferPosition(Offer offer) {
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editOffer.fxml"));
+		Stage stage = new Stage();
+		stage.setTitle("Angebotsdaten bearbeiten");
+		try {
+			stage.setScene(new Scene(loader.load()));
+		} catch (IOException e) {
+			System.out.println("Fehler beim Oeffnen des Angebotsdaten bearbeiten Fensters!");
+			e.printStackTrace();
+		}
+		EditOfferController controller = loader.<EditOfferController>getController();
+		controller.initialize(offer);
+		stage.show();
+	}
 	
 	@FXML
 	private void createPDF() {

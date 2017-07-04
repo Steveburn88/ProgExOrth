@@ -1,16 +1,13 @@
 package de.schneefisch.fruas.database;
 
+import de.schneefisch.fruas.model.OfferPosition;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.schneefisch.fruas.model.Customer;
-import de.schneefisch.fruas.model.OfferPosition;
-import de.schneefisch.fruas.model.Product;
-import de.schneefisch.fruas.model.Salutation;
 
 public class OfferPositionDAO {
 
@@ -56,7 +53,8 @@ public class OfferPositionDAO {
 		
 		ResultSet rs = statement.executeQuery();
 		while(rs.next()) {
-			OfferPosition op = new OfferPosition(rs.getInt("idAngebot_Pos"), rs.getInt("idAngebot"), rs.getInt("anzahlAngebot_Pos"), rs.getInt("idProdukt"));
+			OfferPosition op = new OfferPosition(rs.getInt("idAngebot_Pos"), rs.getInt("idAngebot"),
+					rs.getInt("anzahlAngebot_Pos"), rs.getInt("idProdukt"));
 			
 			offerPositions.add(op);
 			

@@ -1,23 +1,37 @@
 package de.schneefisch.fruas.controller;
 
 import de.schneefisch.fruas.database.CustomerDAO;
+import de.schneefisch.fruas.database.FiCustomerDAO;
 import de.schneefisch.fruas.database.LocationDAO;
 import de.schneefisch.fruas.model.Customer;
+import de.schneefisch.fruas.model.FiCustomer;
 import de.schneefisch.fruas.model.Location;
 import de.schneefisch.fruas.model.Salutation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-public class CreateCustomerController {
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
+public class CreateCustomerController implements Initializable{
 	@FXML
 	private ToggleGroup salutation;
 	@FXML
@@ -48,6 +62,10 @@ public class CreateCustomerController {
 	private Button cancelButton;
 	@FXML
 	private TextField fiCustomerId;
+	@FXML
+	private ComboBox<String> fiCustomerBox;
+	
+	private ObservableList<String> fiCustomerList = FXCollections.observableArrayList();
 
 	@FXML
 	private void createCustomer(ActionEvent event) {
@@ -106,5 +124,20 @@ public class CreateCustomerController {
 		CreateFiCustomerController controller = loader.<CreateFiCustomerController>getController();
 		controller.initData(customer);
 		stage.show();
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		FiCustomerDAO fcDAO = new FiCustomerDAO();
+		try {
+			List<FiCustomer> fcList = fcDAO.selectAllFiCustomers();
+			System.out.println(fcList);
+			List<String> stringList = fcList.stream().map(fc -> fc.toStringForList()).collect(Collectors.toList());
+			fiCustomerList.addAll(stringList);
+			fiCustomerBox.getItems().addAll(fiCustomerList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		fiCustomerBox.setOnAction(e -> fiCustomerId.setText(fiCustomerBox.getValue().substring(fiCustomerBox.getValue().indexOf("[")+1,fiCustomerBox.getValue().indexOf("]") )));		
 	}
 }

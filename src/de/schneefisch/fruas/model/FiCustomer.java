@@ -38,6 +38,8 @@ public class FiCustomer {
 	public String toString() {
 		return "FiCustomer [id=" + id + ", name=" + name + "]";
 	}
-
+	public String toStringForList() {
+		return name +" ["+ id + "]";
+	}
 	
 }

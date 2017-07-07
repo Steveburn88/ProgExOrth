@@ -6,11 +6,13 @@ import de.schneefisch.fruas.model.FiCustomer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FiCustomerDAO {
 
-private DBConnector dbc;
-	
+	private DBConnector dbc;
+
 	public FiCustomerDAO() {
 		try {
 			this.dbc = new DBConnector();
@@ -18,18 +20,18 @@ private DBConnector dbc;
 			e.printStackTrace();
 		}
 	}
-	
+
 	public FiCustomer selectFiCustomer(int fiCustomerId) throws SQLException {
 		String query = "select * from firmenkunde where idFirmenkunde = ?;";
-		
+
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
 		statement.setInt(1, fiCustomerId);
 		ResultSet rs = statement.executeQuery();
 		FiCustomer fiCustomer = null;
-		if(rs.next()) {
-			fiCustomer  = new FiCustomer(rs.getInt("idFirmenkunde"), rs.getString("nameFirmenkunde"));
+		if (rs.next()) {
+			fiCustomer = new FiCustomer(rs.getInt("idFirmenkunde"), rs.getString("nameFirmenkunde"));
 		}
-		
+
 		return fiCustomer;
 	}
 
@@ -46,7 +48,19 @@ private DBConnector dbc;
 				throw new SQLException("Creating user failed, no ID obtained.");
 			}
 		}
-		System.out.println("inserted " + results + " fiCustomer:" +fiCustomer);
+		System.out.println("inserted " + results + " fiCustomer:" + fiCustomer);
 		return fiCustomer;
+	}
+
+	public List<FiCustomer> selectAllFiCustomers() throws SQLException {
+		List<FiCustomer> fiCustomerList = new ArrayList<FiCustomer>();
+		String query = "select * from firmenkunde;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		ResultSet rs = statement.executeQuery();
+		while (rs.next()) {
+			FiCustomer fiCustomer = new FiCustomer(rs.getInt("idFirmenkunde"), rs.getString("nameFirmenkunde"));
+			fiCustomerList.add(fiCustomer);
+		}
+		return fiCustomerList;
 	}
 }

@@ -196,5 +196,12 @@ public class Customer {
 				+ email + ", position=" + position + ", department=" + department + ", roomNumber=" + roomNumber
 				+ ", buildingNumber=" + buildingNumber + ", faxNumber=" + faxNumber + "]";
 	}
+	
+	public String toStringForAlert() {
+		return "Id: " + id + "\nFiKuId: " + fiKuId + "\nStandortId: " + locationId + "\nAnrede: " + salutation
+				+ "\nVorname: " + firstName + "\nNachname: " + lastName + "\nTelefon: " + phoneNumber + "\nEmail: "
+				+ email + "\nPosition: " + position + "\nAbteilung: " + department + "\nRaumnummer: " + roomNumber
+				+ "\nGebäudenummer:" + buildingNumber + "\nFax: " + faxNumber;
+	}
 
 }

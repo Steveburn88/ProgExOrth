@@ -9,10 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -90,10 +92,16 @@ public class SearchCustomerController implements Initializable{
 					int removed =cdao.deleteCustomer(custId);					
 					if(removed == 1 ) {
 						list.remove(getsRemoved);
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Kunde gelöscht!");
+						alert.setHeaderText(null);
+						alert.setContentText("Gelöschte Daten:\n" + getsRemoved.toStringForAlert());
+						alert.showAndWait();						
 					}					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
 		}
 	}

@@ -24,9 +24,9 @@ public class ProductDAO {
     public int updateProduct(Product product) throws SQLException {
         String query = "update produkt set "
                 + "nameProdukt = ?, "
-                + "versionsnummerProdukt= ?, "
+                + "versionsnummerProdukt = ?, "
                 + "preisProdukt = ?, "
-                + "systemvoraussetzungProdukt = ?, "
+                + "systemvoraussetzungProdukt = ? "
                 + "where idProdukt = ?;";
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         statement.setString(1, product.getName());

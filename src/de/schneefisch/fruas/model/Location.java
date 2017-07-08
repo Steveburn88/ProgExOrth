@@ -94,4 +94,9 @@ public class Location {
 				+ ", postBox=" + postBox + ", street=" + street + ", houseNumber=" + houseNumber + "]";
 	}
 
+	public String toStringForAlert() {
+		return "Id: " + id + "\nFiKuId: " + fiKuId + "\nPLZ: " + postalCode + "\nStadt: " 
+				+ city + "\nPostFach: " + postBox + "\nStrasse: " + street + "\nHausnummer: " + houseNumber;
+	}
+
 }

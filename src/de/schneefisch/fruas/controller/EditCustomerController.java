@@ -6,10 +6,12 @@ import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Salutation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class EditCustomerController  {
@@ -73,17 +75,27 @@ public class EditCustomerController  {
 		if (frau.isSelected()) {
 			salut = Salutation.Frau;
 		}
-		Customer updatedCustomer = new Customer(customer.getId(), salut, firstName.getText(), lastName.getText(),
+		Customer updatedCustomer = new Customer(customer.getId(), customer.getFiKuId(), customer.getLocationId(), salut, firstName.getText(), lastName.getText(),
 				phoneNumber.getText(), email.getText(), position.getText(), department.getText(), 
 				roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
-		
+		int updated= 0;
 		try {
 			CustomerDAO cdao = new CustomerDAO();
-			int updated = cdao.updateCustomer(updatedCustomer);
+			updated = cdao.updateCustomer(updatedCustomer);
 			System.out.println("affected rows: "+ updated);
 		} catch ( Exception e) {
 			e.printStackTrace();
 		}
+		if(updated == 1) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Kundendaten aktualisiert!");
+			alert.setHeaderText(null);
+			alert.setContentText("Neuer Informationen:\n" + updatedCustomer.toStringForAlert());
+			alert.showAndWait();
+			Stage stage = (Stage) cancelButton.getScene().getWindow();
+			stage.close();
+		}
+		
 	}
 	
 	@FXML

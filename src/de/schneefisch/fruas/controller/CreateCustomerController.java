@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
@@ -28,6 +30,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import javax.xml.ws.Action;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
@@ -83,7 +87,7 @@ public class CreateCustomerController implements Initializable{
 			Stage stage = (Stage) cancelButton.getScene().getWindow();
 			stage.close();
 		} else {
-
+			Customer insertedCustomer = null;
 			int fiCustomerIdAsInt = Integer.parseInt(fiCustomerId.getText().trim(), 10);
 			try {
 				CustomerDAO cdao = new CustomerDAO();
@@ -93,7 +97,7 @@ public class CreateCustomerController implements Initializable{
 					Customer customer = new Customer(fiCustomerIdAsInt, location.getId(), salut, firstName.getText(),
 							lastName.getText(), phoneNumber.getText(), email.getText(), position.getText(),
 							department.getText(), roomNumber.getText(), buildingNumber.getText(), faxNumber.getText());
-					cdao.insertCustomer(customer);
+					insertedCustomer = cdao.insertCustomer(customer);
 				} else {
 					System.out.println("es gibt keinen standort mit dieser fikuid");
 					return;
@@ -102,6 +106,13 @@ public class CreateCustomerController implements Initializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Kunde erstellt!");
+			alert.setHeaderText(null);
+			alert.setContentText("Neuer Kunde:\n" + insertedCustomer.toStringForAlert());
+			alert.showAndWait();
+			Stage stage = (Stage) cancelButton.getScene().getWindow();
+			stage.close();
 		}
 	}
 

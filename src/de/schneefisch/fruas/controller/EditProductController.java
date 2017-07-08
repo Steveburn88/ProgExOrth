@@ -5,10 +5,12 @@ import de.schneefisch.fruas.model.Product;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class EditProductController {
@@ -44,14 +46,23 @@ public class EditProductController {
     @FXML
     private void saveProduct() {
         Product updatedProduct = new Product(product.getId(), name.getText(), version.getText(),
-                Float.parseFloat(price.getText().trim()), requirements.getText());
-
+                Float.parseFloat(price.getText().replaceAll(",", ".").trim()), requirements.getText());
+        int updated = 0;
         try {
             ProductDAO cdao = new ProductDAO();
-            int updated = cdao.updateProduct(updatedProduct);
+            updated = cdao.updateProduct(updatedProduct);
             System.out.println("affected rows: "+ updated);
         } catch ( Exception e) {
             e.printStackTrace();
+        }
+        if(updated == 1) {
+        	Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Produktdaten geändert!");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Neue Daten:\n" + updatedProduct.toStringForAlert());
+    		alert.showAndWait();
+    		Stage stage = (Stage) cancelButton.getScene().getWindow();
+    		stage.close();
         }
     }
 

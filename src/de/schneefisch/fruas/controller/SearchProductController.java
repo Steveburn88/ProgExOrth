@@ -11,10 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -30,6 +32,7 @@ public class SearchProductController implements Initializable {
 	@FXML private Button editButton;
 	@FXML private Button deleteButton;
 	@FXML private Button cancelButton;
+	@FXML private Button findProductLicensesButton;
 	@FXML private TextField idField;
 	@FXML private TextField nameField;
 
@@ -49,8 +52,6 @@ public class SearchProductController implements Initializable {
 		try {
 			ProductDAO cdao = new ProductDAO();
 			List<Product> customerList = cdao.selectAllProducts();
-			/*DBConnector dbc = new DBConnector();
-			List<Customer> customerList = dbc.selectAllCustomers();*/
 			customerList.stream().forEach(System.out::println);
 			list.addAll(customerList);
 		} catch (Exception e) {
@@ -161,8 +162,39 @@ public class SearchProductController implements Initializable {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Produkt gelöscht!");
+				alert.setHeaderText(null);
+				alert.setContentText("Gelöschtes Produkt:\n" + getsRemoved.toStringForAlert());
+				alert.showAndWait();				
 			}
 		}
+	}
+	
+	@FXML
+	private void findProductLicenses() {
+		if(!table.getSelectionModel().isEmpty()) {
+			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("Bitte nur ein Produkt markieren!");
+			} else {
+				Product getsEdited = table.getSelectionModel().getSelectedItem();
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("searchProductLicenses.fxml"));
+				Stage stage = new Stage();
+				stage.setTitle("Produktlizenzen");
+				try {
+					stage.setScene(new Scene(loader.load()));
+				} catch (IOException e) {
+					System.out.println("Fehler beim Oeffnen des Produktdaten bearbeiten Fensters!");
+					e.printStackTrace();
+				}
+				SearchProductLicensesController controller = loader.<SearchProductLicensesController>getController();
+				controller.findLicensesForProduct(getsEdited);
+				stage.show();
+			}
+		}
+		
+		
 	}
 
 	@FXML

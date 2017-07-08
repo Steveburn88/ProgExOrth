@@ -8,8 +8,10 @@ import de.schneefisch.fruas.model.FiCustomer;
 import de.schneefisch.fruas.model.Location;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class CreateFiCustomerController {
@@ -49,7 +51,17 @@ public class CreateFiCustomerController {
 		Location insertedLoc = ldao.insertLocation(location);
 		customer.setFiKuId(insertedFi.getId());
 		customer.setLocationId(insertedLoc.getId());
-		cdao.insertCustomer(customer);
+		Customer insertedCustomer = cdao.insertCustomer(customer);
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Kunde erstellt!");
+		alert.setHeaderText(null);
+		alert.setContentText("Neuer Kunde: " + "\n" + insertedCustomer.toStringForAlert() + "\n"
+				 + "\n"+ "Neuer Firmenkunde: " + "\n" + insertedFi.toStringForAlert() + "\n" 
+				 + "\n"+ "Neuer Standort: " + "\n" + insertedLoc.toStringForAlert());
+		alert.showAndWait();
+		
+		
 		Stage stage = (Stage) createFiCustomerButton.getScene().getWindow();
 	    stage.close();
 		

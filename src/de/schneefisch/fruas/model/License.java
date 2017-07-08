@@ -139,4 +139,8 @@ public class License {
 		this.maintenanceId = maintenanceId;
 	}
 
+	public String toStringForAlert() {
+		return "\nId: " + id + "\nProduktId: " +productId+ "\nSchluessel: " + key;				
+	}
+
 }

@@ -41,5 +41,9 @@ public class FiCustomer {
 	public String toStringForList() {
 		return name +" ["+ id + "]";
 	}
+
+	public String toStringForAlert() {
+		return "Id: " + id + "\nName: " + name;
+	}
 	
 }

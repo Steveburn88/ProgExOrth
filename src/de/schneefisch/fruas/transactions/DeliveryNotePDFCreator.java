@@ -1,46 +1,66 @@
 package de.schneefisch.fruas.transactions;
 
-import de.schneefisch.fruas.database.*;
-import de.schneefisch.fruas.model.*;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import de.schneefisch.fruas.database.CustomerDAO;
+import de.schneefisch.fruas.database.DeliveryNotePositionDAO;
+import de.schneefisch.fruas.database.FiCustomerDAO;
+import de.schneefisch.fruas.database.LicenseDAO;
+import de.schneefisch.fruas.database.LocationDAO;
+import de.schneefisch.fruas.database.MaintenanceDAO;
+import de.schneefisch.fruas.database.ProductDAO;
+import de.schneefisch.fruas.model.Customer;
+import de.schneefisch.fruas.model.DeliveryNote;
+import de.schneefisch.fruas.model.DeliveryNotePosition;
+import de.schneefisch.fruas.model.FiCustomer;
+import de.schneefisch.fruas.model.License;
+import de.schneefisch.fruas.model.Location;
+import de.schneefisch.fruas.model.Maintenance;
+import de.schneefisch.fruas.model.Product;
 
-public class OfferPDFCreator {
-
-	private Offer offer;
+public class DeliveryNotePDFCreator {
+	
+	private DeliveryNote deliveryNote;
 	private Customer customer;
 	private FiCustomer fiCustomer;
 	private Location location;
-	private List<OfferPosition> offerPositions;
-	
-	
-	public OfferPDFCreator(){};
+	private List<DeliveryNotePosition> deliveryNotePositions;
 
-	public OfferPDFCreator(Offer offer) {
-		this.offer = offer;
+	public DeliveryNotePDFCreator(DeliveryNote dn) {
+		this.deliveryNote = dn;
+		
+		DeliveryNotePositionDAO dnpDAO = new DeliveryNotePositionDAO();
+		LicenseDAO lDAO = new LicenseDAO();
+		
 		CustomerDAO cDAO = new CustomerDAO();
 		FiCustomerDAO fDAO = new FiCustomerDAO();
-		LocationDAO lDAO = new LocationDAO();
-		OfferPositionDAO opDAO = new OfferPositionDAO();
+		LocationDAO locDAO = new LocationDAO();
+		
+		
 		try {
-			customer = cDAO.searchCustomerById(offer.getCustomerId());
-			fiCustomer = fDAO.selectFiCustomer(customer.getFiKuId());
-			location = lDAO.findLocationByFiCustomerId(fiCustomer.getId());
-			offerPositions = opDAO.searchOfferPositionsByOfferId(offer.getId());
+			this.deliveryNotePositions  = dnpDAO.selectAllPositionsForDeliveryNote(deliveryNote.getId());
+			License license = lDAO.selectLicenseById(deliveryNotePositions.get(0).getLicenseId());
+			
+			this.customer = cDAO.searchCustomerById(license.getCustomerId());
+			this.fiCustomer = fDAO.selectFiCustomer(customer.getFiKuId());
+			this.location = locDAO.findLocationByFiCustomerId(fiCustomer.getId());
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-	public void createPDF() {
+	
+public void createPDF() {
 		
-		String filename = "Angebot-" + offer.getId() + ".pdf";
+		String filename = "Lieferschein-" + deliveryNote.getId() + ".pdf";
 		
 		try {
 			PDDocument doc = new PDDocument();
@@ -71,13 +91,7 @@ public class OfferPDFCreator {
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, 640);		
 			content.showText(fiCustomer.getName());
-			content.endText();
-			
-			content.beginText();
-			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(70, 620);	
-			content.showText(customer.getSalutation() + " " + customer.getFirstName() + " " + customer.getLastName());
-			content.endText();
+			content.endText();			
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
@@ -95,7 +109,7 @@ public class OfferPDFCreator {
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(300, 540);
-			content.showText("Angebot " + offer.getId() +" fuer KN " + offer.getCustomerId());
+			content.showText("Lieferschein " + deliveryNote.getId() +" fuer KN " + fiCustomer.getId());
 			content.endText();
 			
 			content.beginText();
@@ -108,26 +122,16 @@ public class OfferPDFCreator {
 			content.newLineAtOffset(120, 500);
 			content.showText("Bezeichnung");
 			content.endText();
-			content.beginText();
-			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(240, 500);
-			content.showText("Menge");
-			content.endText();
-			content.beginText();
-			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(320, 500);
-			content.showText("Einzelpreis");
-			content.endText();
-			content.beginText();
-			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(440, 500);
-			content.showText("Gesamtpreis");
-			content.endText();
+			
+			
 			int count = 1;
 			float yoffset = 460;
-			for(OfferPosition op: offerPositions) {	
+			for(DeliveryNotePosition dnp: deliveryNotePositions) {	
+				LicenseDAO licDAO = new LicenseDAO();
+				License license = licDAO.selectLicenseById(dnp.getLicenseId());
 				ProductDAO pDAO = new ProductDAO();
-				Product product = pDAO.searchProductById(op.getProductId());
+				Product product = pDAO.searchProductById(license.getProductId());
+				
 				content.beginText();
 				content.setFont(PDType1Font.HELVETICA , 12);
 				content.newLineAtOffset(75, yoffset);
@@ -140,43 +144,42 @@ public class OfferPDFCreator {
 				content.endText();
 				content.beginText();
 				content.setFont(PDType1Font.HELVETICA , 12);
-				content.newLineAtOffset(240, yoffset);
-				content.showText(Integer.toString(op.getCount()));
+				content.newLineAtOffset(120, yoffset-20);
+				content.showText("Lizenz: " + license.getId() + " von " + license.getSoldDate() + " bis " + license.getEndDate()+ ".");
 				content.endText();
-				content.beginText();
-				content.setFont(PDType1Font.HELVETICA , 12);
-				content.newLineAtOffset(320, yoffset);
-				content.showText("EUR " + Float.toString(product.getPrice()));
-				content.endText();
-				content.beginText();
-				content.setFont(PDType1Font.HELVETICA , 12);
-				content.newLineAtOffset(440, yoffset);
-				content.showText("EUR " + Float.toString(op.getCount()*product.getPrice()));
-				content.endText();
+				if(license.getMaintenanceId() == 0 ) {
+					content.beginText();
+					content.setFont(PDType1Font.HELVETICA , 12);
+					content.newLineAtOffset(120, yoffset-40);
+					content.showText("Ohne Maintenance-Vertrag.");
+					content.endText();
+				} else {
+					MaintenanceDAO mDAO = new MaintenanceDAO();
+					Maintenance maintenance = mDAO.searchMaintenanceById(license.getMaintenanceId());
+					content.beginText();
+					content.setFont(PDType1Font.HELVETICA , 12);
+					content.newLineAtOffset(120, yoffset-60);
+					content.showText("Mit " + maintenance.getInfo() + " als Maintenance-Vertrag.");
+					content.endText();
+				}			
 				count++;
-				yoffset-=40;
+				yoffset-=100;
 			}
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, yoffset);
-			content.showText("Bedingungen:");
+			content.showText("Rechnungslegung erfolgt separat.");
 			content.endText();
 			yoffset-=20;
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, yoffset);
-			content.showText("- Alle Preise verstehen sich zzgl. ges. Ust.");
+			content.showText("Das Produkt bleibt bis zur vollständigen Bezahlung unser Eigentum.");
 			content.endText();
-			yoffset-=20;
+			yoffset-=20;			
 			
-			content.beginText();
-			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(70, yoffset);
-			content.showText("- Zahlung erfolgt 30 Tage netto. Dieses Angebot ist freibleibend und gilt bis " + offer.getValidity());
-			content.endText();
-			yoffset-=40;
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
@@ -207,15 +210,4 @@ public class OfferPDFCreator {
 	}
 	
 	
-	
-	
-	
-	public Offer getOffer() {
-		return offer;
-	}
-
-	public void setOffer(Offer offer) {
-		this.offer = offer;
-	}
-
 }

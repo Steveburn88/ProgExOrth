@@ -59,4 +59,12 @@ public class DeliveryNotePositionDAO {
 		return dnpList;
 
 	}
+
+	public int deleteDeliveryNotePosition(int id) throws SQLException{
+		String query = "delete from lieferschein_pos where idLieferschein_Pos = ?;";
+        PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+        statement.setInt(1, id);
+        int removed = statement.executeUpdate();
+        return removed;
+	}
 }

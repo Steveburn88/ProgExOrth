@@ -35,6 +35,20 @@ public class LicenseDAO {
 		return licenseList;			
 	}
 	
+	public License selectLicenseById(int id) throws SQLException { 
+		String query = "select * from lizenz where idLizenz = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setInt(1,	id);
+		ResultSet rs = statement.executeQuery();
+		License license = null;
+		while(rs.next()) {
+			license = new License(rs.getInt("idLizenz"), rs.getInt("idPersonenkunde"), rs.getInt("idProdukt"), 
+					rs.getString("installationsschluesselLizenz"), rs.getBoolean("verkauftStatusLizenz"), rs.getFloat("rabattLizenz"),
+					rs.getDate("verkaufsdatumLizenz"), rs.getDate("ablaufdatumLizenz"), rs.getInt("idMaintenance"));
+		}
+		return license;
+	}
+	
 public List<License> selectLicensesForProductId(int productId) throws SQLException {
 		
 		List<License> licenseList = new ArrayList<License>();

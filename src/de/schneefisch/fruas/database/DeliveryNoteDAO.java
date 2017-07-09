@@ -9,6 +9,7 @@ import java.util.List;
 
 import de.schneefisch.fruas.model.DeliveryNote;
 import de.schneefisch.fruas.model.License;
+import de.schneefisch.fruas.model.Maintenance;
 
 public class DeliveryNoteDAO {
 	private DBConnector dbc;
@@ -53,6 +54,27 @@ public class DeliveryNoteDAO {
 			dnList.add(dn);
 		}
 		return dnList;
+	}
+
+	public DeliveryNote selectDeliveryNoteById(int dnId) throws SQLException {
+		 String query = "select * from lieferschein where idLieferschein = ?;";
+	        PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+	        statement.setInt(1, dnId);
+	        ResultSet rs = statement.executeQuery();
+	        DeliveryNote deliveryNote = null;
+	        while(rs.next()) {
+	        	deliveryNote =  new DeliveryNote(rs.getInt("idLieferschein"),
+	                    rs.getDate("datumLieferschein"));
+	        }
+	        return deliveryNote;
+	}
+
+	public int deleteDeliveryNote(int id) throws SQLException {
+		String query = "delete from lieferschein where idLieferschein = ?;";
+        PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+        statement.setInt(1, id);
+        int removed = statement.executeUpdate();
+        return removed;
 	}
 
 }

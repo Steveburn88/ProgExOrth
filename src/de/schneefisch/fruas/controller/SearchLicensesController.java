@@ -34,6 +34,7 @@ public class SearchLicensesController implements Initializable{
 	@FXML private Button editButton;
 	@FXML private Button deleteButton;
 	@FXML private Button createButton;
+	@FXML private Button refreshButton;
 	
 	@FXML private TextField idField;
 	@FXML private TextField customerIdField;
@@ -50,10 +51,13 @@ public class SearchLicensesController implements Initializable{
 	@FXML private TableColumn<License, Date> endDate;
 	@FXML private TableColumn<License, Integer> maintenanceId;
 	private ObservableList<License> list =  FXCollections.observableArrayList();
+	private ResourceBundle resources;
+	private URL location;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		this.location = location;
+		this.resources = resources;
 		try {
 			LicenseDAO lDAO = new LicenseDAO();
 			List<License> licenseList = lDAO.selectAllLicenses();
@@ -99,12 +103,22 @@ public class SearchLicensesController implements Initializable{
 	private void searchLicense (ActionEvent event) {
 		
 	}
+
+	@FXML
+	private void refresh() {
+		Stage stage = (Stage) refreshButton.getScene().getWindow();
+		//table.refresh();
+		this.initialize(location, resources);
+		stage.show();
+	}
+
 	@FXML
 	private void deleteLicense (ActionEvent event) {
 		
 	}
 	@FXML
 	private void editLicense (ActionEvent event) {
+
 		
 		if(!table.getSelectionModel().isEmpty()) {
 			if(table.getSelectionModel().getSelectedItems().size() > 1) {
@@ -129,5 +143,6 @@ public class SearchLicensesController implements Initializable{
 		
 		
 		
+
 	}
 }

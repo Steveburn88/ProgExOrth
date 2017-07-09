@@ -72,6 +72,30 @@ public List<License> selectLicensesForProductId(int productId) throws SQLExcepti
         return license;
 		
 	}
+
+	public int updateLicense (License license) throws SQLException {
+		String query = "update lizenz set idPersonenkunde = ?, "
+				+ "idProdukt = ?, "
+				+ "installationsschluesselLizenz= ?, "
+				+ "verkauftStatusLizenz = ?, "
+				+ "rabattLizenz = ?, "
+				+ "verkaufsdatumLizenz= ?, "
+				+ "ablaufdatumLizenz = ?, "
+				+ "idMaintenance = ? "
+				+ "where idLizenz = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setInt(1, license.getCustomerId());
+		statement.setInt(2, license.getProductId());
+		statement.setString(3, license.getKey());
+		statement.setBoolean(4, license.isSold());
+		statement.setFloat(5, license.getDiscount());
+		statement.setDate(6, license.getSoldDate());
+		statement.setDate(7, license.getEndDate());
+		statement.setInt(8, license.getMaintenanceId());
+		statement.setInt(9, license.getId());
+		int updated = statement.executeUpdate();
+		return updated;
+	}
 	
 	
 }

@@ -1,3 +1,4 @@
+
 package de.schneefisch.fruas.controller;
 
 import java.net.URL;
@@ -76,3 +77,4 @@ public class EditLicenseController implements Initializable {
 		}
 	    
 }
+

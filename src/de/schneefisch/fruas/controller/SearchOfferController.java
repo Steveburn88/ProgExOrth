@@ -1,6 +1,14 @@
 package de.schneefisch.fruas.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.OfferDAO;
+import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Offer;
 import de.schneefisch.fruas.transactions.OfferPDFCreator;
 import javafx.collections.FXCollections;
@@ -17,12 +25,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class SearchOfferController implements Initializable {
 
@@ -117,7 +119,7 @@ public class SearchOfferController implements Initializable {
 		controller.initialize(offer);
 		stage.show();
 	}
-	
+
 	@FXML
 	private void createPDF() {
 		Offer offer = new Offer();

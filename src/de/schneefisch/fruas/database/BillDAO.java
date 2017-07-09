@@ -25,12 +25,12 @@ public class BillDAO {
         String query = "update rechnung set "
                 + "betragRechnung = ?, "
                 + "bezahltRechnung = ?, "
-                + "idLieferschein = ?, "
+                + "idLieferschein = ? "
                 + "where idRechnung = ?;";
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         statement.setFloat(1, bill.getPrice());
-        statement.setDate(2, bill.getPaid());
-        statement.setInt(3, bill.getDelivery_note_id());
+        statement.setBoolean(2, bill.getPaid());
+        statement.setInt(3, bill.getDeliveryNoteId());
         statement.setInt(4, bill.getId());
         int updated = statement.executeUpdate();
         return updated;
@@ -49,9 +49,9 @@ public class BillDAO {
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         statement.setInt(1, billId);
         ResultSet rs = statement.executeQuery();
-        Bill bill = new Bill();
+        Bill bill = null;
         while(rs.next()) {
-            bill =  new Bill(rs.getInt("idRechnung"), rs.getDate("bezahltRechnung"), rs.getFloat("betragRechnung"),
+            bill =  new Bill(rs.getInt("idRechnung"), rs.getBoolean("bezahltRechnung"), rs.getFloat("betragRechnung"),
                     rs.getInt("idLieferschein"));
         }
         return bill;
@@ -62,9 +62,9 @@ public class BillDAO {
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         statement.setInt(1, deliveryNoteId);
         ResultSet rs = statement.executeQuery();
-        Bill bill = new Bill();
+        Bill bill = null;
         while(rs.next()) {
-            bill =  new Bill(rs.getInt("idRechnung"), rs.getDate("bezahltRechnung"), rs.getFloat("betragRechnung"),
+            bill =  new Bill(rs.getInt("idRechnung"), rs.getBoolean("bezahltRechnung"), rs.getFloat("betragRechnung"),
                     rs.getInt("idLieferschein"));
         }
         return bill;
@@ -76,7 +76,7 @@ public class BillDAO {
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         ResultSet rs = statement.executeQuery();
         while(rs.next()) {
-            Bill bill =  new Bill(rs.getInt("idRechnung"), rs.getDate("bezahltRechnung"), rs.getFloat("betragRechnung"),
+            Bill bill =  new Bill(rs.getInt("idRechnung"), rs.getBoolean("bezahltRechnung"), rs.getFloat("betragRechnung"),
                     rs.getInt("idLieferschein"));
             billList.add(bill);
         }
@@ -90,9 +90,9 @@ public class BillDAO {
 
         PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-        statement.setDate(1, bill.getPaid());
+        statement.setBoolean(1, bill.getPaid());
         statement.setFloat(2, bill.getPrice());
-        statement.setInt(3, bill.getDelivery_note_id());
+        statement.setInt(3, bill.getDeliveryNoteId());
 
         int results = statement.executeUpdate();
         try (ResultSet generatedKeys = statement.getGeneratedKeys()) {

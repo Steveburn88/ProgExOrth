@@ -19,6 +19,22 @@ public class MainWindowController {
 	@FXML private Button searchBillButton;
 	@FXML private Button searchDeliveryNoteButton;
 	@FXML private Button searchLicenseButton;
+	@FXML private Button searchLeasingButton;
+	
+	@FXML
+	private void searchLeasing(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("searchLeasings.fxml"));
+		Stage stage = new Stage();
+		stage.setTitle("Leasing-Suche");
+		try {
+			stage.setScene(new Scene(loader.load()));
+		} catch (IOException e) {
+			System.out.println("Fehler beim Oeffnen des Leasing-Suche-Fensters!");
+			e.printStackTrace();
+		}
+		SearchLeasingsController controller = loader.<SearchLeasingsController>getController();		
+		stage.show();
+	}
 
 	
 	@FXML

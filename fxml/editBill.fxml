@@ -26,8 +26,6 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="paid" GridPane.rowIndex="1" />
-                <Label text="Bezahlt am" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="price" GridPane.rowIndex="3" />
                 <Label text="Betrag" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="deliveryNoteID" GridPane.rowIndex="4" />
@@ -38,6 +36,16 @@
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
                     </children>
                 </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <RadioButton fx:id="paidRadioButton" mnemonicParsing="false" text="Bezahlt  ">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="paidGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="notPaidRadioButton" mnemonicParsing="false" text="Ausstehend" toggleGroup="$paidGroup" />
+               </children>
+            </HBox>
             </children>
         </GridPane>
     </center>

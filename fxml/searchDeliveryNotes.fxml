@@ -15,13 +15,14 @@
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteDeliveryNote" text="Löschen" />
             <Button fx:id="searchPositionsButton" mnemonicParsing="false" onAction="#searchDeliveryNotePositions" text="Positionen anzeigen" />
             <Button fx:id="pdfButton" mnemonicParsing="false" onAction="#createPDF" text="PDF" />
+            <Button fx:id="billButton" mnemonicParsing="false" onAction="#createBillFromDeliveryNote" text="Rechnung" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
          </children>
       </HBox>
    </bottom>
    <top>
       <VBox prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
+         <children> 
             <HBox prefHeight="31.0" prefWidth="600.0">
                <children>
                   <TextField fx:id="idField" />

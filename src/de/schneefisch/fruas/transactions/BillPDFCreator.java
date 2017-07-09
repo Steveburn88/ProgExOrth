@@ -10,12 +10,14 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import de.schneefisch.fruas.database.CustomerDAO;
+import de.schneefisch.fruas.database.DeliveryNoteDAO;
 import de.schneefisch.fruas.database.DeliveryNotePositionDAO;
 import de.schneefisch.fruas.database.FiCustomerDAO;
 import de.schneefisch.fruas.database.LicenseDAO;
 import de.schneefisch.fruas.database.LocationDAO;
 import de.schneefisch.fruas.database.MaintenanceDAO;
 import de.schneefisch.fruas.database.ProductDAO;
+import de.schneefisch.fruas.model.Bill;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.DeliveryNote;
 import de.schneefisch.fruas.model.DeliveryNotePosition;
@@ -25,26 +27,27 @@ import de.schneefisch.fruas.model.Location;
 import de.schneefisch.fruas.model.Maintenance;
 import de.schneefisch.fruas.model.Product;
 
-public class DeliveryNotePDFCreator {
+public class BillPDFCreator {
 	
+	private Bill bill;
 	private DeliveryNote deliveryNote;
 	private Customer customer;
 	private FiCustomer fiCustomer;
 	private Location location;
 	private List<DeliveryNotePosition> deliveryNotePositions;
 
-	public DeliveryNotePDFCreator(DeliveryNote dn) {
-		this.deliveryNote = dn;
+	public BillPDFCreator(Bill bill) {
+		this.bill = bill;
 		
+		DeliveryNoteDAO dnDAO = new DeliveryNoteDAO();		
 		DeliveryNotePositionDAO dnpDAO = new DeliveryNotePositionDAO();
-		LicenseDAO lDAO = new LicenseDAO();
-		
+		LicenseDAO lDAO = new LicenseDAO();		
 		CustomerDAO cDAO = new CustomerDAO();
 		FiCustomerDAO fDAO = new FiCustomerDAO();
-		LocationDAO locDAO = new LocationDAO();
-		
+		LocationDAO locDAO = new LocationDAO();		
 		
 		try {
+			this.deliveryNote = dnDAO.selectDeliveryNoteById(bill.getDeliveryNoteId());
 			this.deliveryNotePositions  = dnpDAO.selectAllPositionsForDeliveryNote(deliveryNote.getId());
 			License license = lDAO.selectLicenseById(deliveryNotePositions.get(0).getLicenseId());
 			
@@ -60,7 +63,7 @@ public class DeliveryNotePDFCreator {
 	
 public void createPDF() {
 		
-		String filename = "Lieferschein-" + deliveryNote.getId() + ".pdf";
+		String filename = "Rechnung-" + bill.getId() + ".pdf";
 		
 		try {
 			PDDocument doc = new PDDocument();
@@ -91,12 +94,12 @@ public void createPDF() {
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, 640);		
 			content.showText(fiCustomer.getName());
-			content.endText();	
+			content.endText();		
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, 620);	
-			content.showText("Wareneingang");
+			content.showText("Rechnungsprüfung");
 			content.endText();
 			
 			content.beginText();
@@ -114,20 +117,44 @@ public void createPDF() {
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(300, 540);
-			content.showText("Lieferschein " + deliveryNote.getId() +" fuer KN " + fiCustomer.getId());
+			content.newLineAtOffset(70, 540);
+			content.showText("Rechnung " + bill.getId() +" fuer KN " + fiCustomer.getId());
+			content.endText();
+			
+			
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(70, 520);
+			content.showText("Sehr geehrte Damen und Herren, ");
 			content.endText();
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(75, 500);
+			content.newLineAtOffset(70, 500);
+			content.showText("hiermit erlauben wir uns für unsere Lieferung Nr. " + deliveryNote.getId() + " vom " + deliveryNote.getDate());
+			content.endText();
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(70, 485);
+			content.showText("folgenden Betrag in Rechnung zu stellen:");
+			content.endText();
+			
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(75, 470);
 			content.showText("POS");
 			content.endText();
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
-			content.newLineAtOffset(120, 500);
+			content.newLineAtOffset(120, 470);
 			content.showText("Bezeichnung");
 			content.endText();
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(440, 470);
+			content.showText("Preis");
+			content.endText();
+			
 			
 			
 			int count = 1;
@@ -153,6 +180,11 @@ public void createPDF() {
 				content.newLineAtOffset(120, yoffset-20);
 				content.showText("Lizenz: " + license.getId() + " von " + license.getSoldDate() + " bis " + license.getEndDate()+ ".");
 				content.endText();
+				content.beginText();
+				content.setFont(PDType1Font.HELVETICA , 12);
+				content.newLineAtOffset(440, yoffset-20);
+				content.showText("Eur " + product.getPrice() * ((100 - license.getDiscount()) / 100) );
+				content.endText();
 				if(license.getMaintenanceId() == 0 ) {
 					content.beginText();
 					content.setFont(PDType1Font.HELVETICA , 12);
@@ -167,6 +199,11 @@ public void createPDF() {
 					content.newLineAtOffset(120, yoffset-40);
 					content.showText("Mit " + maintenance.getInfo() + " als Maintenance-Vertrag.");
 					content.endText();
+					content.beginText();
+					content.setFont(PDType1Font.HELVETICA , 12);
+					content.newLineAtOffset(440, yoffset-40);
+					content.showText("Eur " + maintenance.getPrice());
+					content.endText();
 				}			
 				count++;
 				yoffset-=100;
@@ -175,17 +212,53 @@ public void createPDF() {
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, yoffset);
-			content.showText("Rechnungslegung erfolgt separat.");
+			content.showText("Summe ");
+			content.endText();
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(440, yoffset);
+			content.showText(String.valueOf("EUR " + bill.getPrice()));
 			content.endText();
 			yoffset-=20;
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
 			content.newLineAtOffset(70, yoffset);
-			content.showText("Das Produkt bleibt bis zur vollständigen Bezahlung unser Eigentum.");
+			content.showText("USt. 19%");
+			content.endText();
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(440, yoffset);
+			double ust = (bill.getPrice() * 0.19);
+			content.showText(String.valueOf("EUR " + ust));
+			content.endText();
+			yoffset-=20;
+			
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(70, yoffset);
+			content.showText("Gesamtsumme");
+			content.endText();
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(440, yoffset);
+			double priceTotal = bill.getPrice() + ust;
+			content.showText(String.valueOf("EUR " + priceTotal));
+			content.endText();
+			yoffset-=40;
+			
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(70, yoffset);
+			content.showText("Wir bitten Sie, den Gesamtbetrag von EUR " + priceTotal + " auf unser Konto 123456,");
 			content.endText();
 			yoffset-=20;			
-			
+			content.beginText();
+			content.setFont(PDType1Font.HELVETICA , 12);
+			content.newLineAtOffset(70, yoffset);
+			content.showText("bei der Bank Unserort, BLZ4321, IBAN123 zu überweisen. Zahlungsziel: 30 Tage netto.");
+			content.endText();
+			yoffset-=25;
 			
 			content.beginText();
 			content.setFont(PDType1Font.HELVETICA , 12);
@@ -214,6 +287,5 @@ public void createPDF() {
 		
 		
 	}
-	
 	
 }

@@ -3,16 +3,26 @@ package de.schneefisch.fruas.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import de.schneefisch.fruas.database.BillDAO;
 import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.DeliveryNoteDAO;
+import de.schneefisch.fruas.database.DeliveryNotePositionDAO;
 import de.schneefisch.fruas.database.LicenseDAO;
+import de.schneefisch.fruas.database.MaintenanceDAO;
+import de.schneefisch.fruas.database.ProductDAO;
+import de.schneefisch.fruas.model.Bill;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.DeliveryNote;
+import de.schneefisch.fruas.model.DeliveryNotePosition;
 import de.schneefisch.fruas.model.License;
+import de.schneefisch.fruas.model.Maintenance;
 import de.schneefisch.fruas.model.Offer;
+import de.schneefisch.fruas.model.Product;
 import de.schneefisch.fruas.transactions.DeliveryNotePDFCreator;
 import de.schneefisch.fruas.transactions.OfferPDFCreator;
 import javafx.collections.FXCollections;
@@ -44,6 +54,8 @@ public class SearchDeliveryNoteController implements Initializable {
 	private Button searchPositionsButton;
 	@FXML
 	private Button pdfButton;
+	@FXML
+	private Button billButton;
 	@FXML
 	private TableView<DeliveryNote> table;
 	@FXML
@@ -77,7 +89,7 @@ public class SearchDeliveryNoteController implements Initializable {
 		} else
 			return;
 	}
-	
+
 	@FXML
 	private void createPDF() {
 		DeliveryNote deliveryNote = null;
@@ -141,7 +153,8 @@ public class SearchDeliveryNoteController implements Initializable {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Achtung!");
 					alert.setHeaderText(null);
-					alert.setContentText("Der Lieferschein konnte nicht gelöscht werden! Es bestehen zugehörige Lieferscheinpositionen!");
+					alert.setContentText(
+							"Der Lieferschein konnte nicht gelöscht werden! Es bestehen zugehörige Lieferscheinpositionen!");
 					alert.showAndWait();
 				}
 
@@ -195,6 +208,38 @@ public class SearchDeliveryNoteController implements Initializable {
 		stage.close();
 	}
 
+	@FXML
+	private void createBillFromDeliveryNote(ActionEvent event) {
+		DeliveryNote dn = null;
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("nur einen Kunden markieren!");
+			} else {
+				dn = table.getSelectionModel().getSelectedItem();
+			}
+		}
+		try {
+			if (!billExists(dn)) {
+				float price = 0;
+				BillDAO bDAO = new BillDAO();
+				price = calculatePrice(dn);
+				Bill bill = new Bill(false, price, dn.getId());
+				bDAO.insertBill(bill);
+
+			} else {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Rechnung nicht erstellt!");
+				alert.setHeaderText(null);
+				alert.setContentText("Für diesen Lieferschein gibt es bereits eine Rechnung!");
+				alert.showAndWait();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -213,5 +258,38 @@ public class SearchDeliveryNoteController implements Initializable {
 
 		table.setItems(list);
 
+	}
+
+	private boolean billExists(DeliveryNote dn) throws SQLException {
+		BillDAO bDAO = new BillDAO();
+		List<Bill> bills = bDAO.selectAllBills();
+		for (Bill b : bills) {
+			if (b.getDeliveryNoteId() == dn.getId())
+				return true;
+		}
+		return false;
+	}
+
+	private float calculatePrice(DeliveryNote dn) throws SQLException {
+		DeliveryNotePositionDAO dnpDAO = new DeliveryNotePositionDAO();
+		LicenseDAO lDAO = new LicenseDAO();
+		ProductDAO pDAO = new ProductDAO();
+		MaintenanceDAO mDAO = new MaintenanceDAO();
+		float price = 0;
+		List<DeliveryNotePosition> deliveryNotePositions = dnpDAO.selectAllPositionsForDeliveryNote(dn.getId());
+		List<License> licenses = new ArrayList<License>();
+		for (DeliveryNotePosition dnp : deliveryNotePositions) {
+			licenses.add(lDAO.selectLicenseById(dnp.getLicenseId()));
+		}
+		for (License lic : licenses) {
+			Product product = pDAO.searchProductById(lic.getProductId());
+			price += product.getPrice() * ((100 - lic.getDiscount()) / 100);
+			if(lic.getMaintenanceId() != 0) {
+				Maintenance maintenance = mDAO.searchMaintenanceById(lic.getMaintenanceId());
+				price += maintenance.getPrice();
+			}
+			
+		}
+		return price;
 	}
 }

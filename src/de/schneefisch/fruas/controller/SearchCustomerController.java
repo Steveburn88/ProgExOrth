@@ -55,8 +55,7 @@ public class SearchCustomerController implements Initializable{
 		try {
 			CustomerDAO cdao = new CustomerDAO();
 			List<Customer> customerList = cdao.selectAllCustomers();
-			/*DBConnector dbc = new DBConnector();
-			List<Customer> customerList = dbc.selectAllCustomers();*/
+		
 			customerList.stream().forEach(System.out::println);
 			list.addAll(customerList);
 		} catch (Exception e) {

@@ -2,6 +2,9 @@ package de.schneefisch.fruas.controller;
 
 import de.schneefisch.fruas.database.BillDAO;
 import de.schneefisch.fruas.model.Bill;
+import de.schneefisch.fruas.model.DeliveryNote;
+import de.schneefisch.fruas.transactions.BillPDFCreator;
+import de.schneefisch.fruas.transactions.DeliveryNotePDFCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,7 +36,7 @@ public class SearchBillController implements Initializable {
 	@FXML private TableColumn<Bill, Integer> id;
 	@FXML private TableColumn<Bill, String> paid;
 	@FXML private TableColumn<Bill, Float> price;
-	@FXML private TableColumn<Bill, String> deliveryNoteID;
+	@FXML private TableColumn<Bill, Integer> deliveryNoteId;
 
 	private ObservableList<Bill> list =  FXCollections.observableArrayList();
 
@@ -42,9 +45,7 @@ public class SearchBillController implements Initializable {
 
 		try {
 			BillDAO cdao = new BillDAO();
-			List<Bill> billList = cdao.selectAllBills();
-			/*DBConnector dbc = new DBConnector();
-			List<Customer> customerList = dbc.selectAllCustomers();*/
+			List<Bill> billList = cdao.selectAllBills();			
 			billList.stream().forEach(System.out::println);
 			list.addAll(billList);
 		} catch (Exception e) {
@@ -53,7 +54,7 @@ public class SearchBillController implements Initializable {
 		id.setCellValueFactory(new PropertyValueFactory<Bill, Integer>("id"));
 		paid.setCellValueFactory(new PropertyValueFactory<Bill, String>("paid"));
 		price.setCellValueFactory(new PropertyValueFactory<Bill, Float>("price"));
-		deliveryNoteID.setCellValueFactory(new PropertyValueFactory<Bill, String>("deliveryNoteID"));
+		deliveryNoteId.setCellValueFactory(new PropertyValueFactory<Bill, Integer>("deliveryNoteId"));
 		table.setItems(list);
 	}
 
@@ -81,6 +82,21 @@ public class SearchBillController implements Initializable {
 			}
 		}
 		else return;
+	}
+	
+	@FXML
+	private void createPDF() {
+		Bill bill = null;
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("nur einen Kunden markieren!");
+			} else {
+				bill = table.getSelectionModel().getSelectedItem();
+			}
+		}
+		System.out.println("erstelle pdf fuer Rechnung " + bill.getId() + ".");
+		BillPDFCreator oc = new BillPDFCreator(bill);
+		oc.createPDF();
 	}
 
 	@FXML

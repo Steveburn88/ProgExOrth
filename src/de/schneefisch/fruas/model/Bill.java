@@ -5,25 +5,25 @@ public class Bill {
 
     private int id;
     //private int paid;
-    private Date paid;
+    private boolean paid;
     private float price;
-    private int delivery_note_id;
+    private int deliveryNoteId;
 
     public Bill() {
 
     }
 
-    public Bill(Date paid, float price, int delivery_note_id) {
+    public Bill(boolean paid, float price, int delivery_note_id) {
         this.paid = paid;
         this.price = price;
-        this.delivery_note_id = delivery_note_id;
+        this.deliveryNoteId = delivery_note_id;
     }
 
-    public Bill(int id, Date paid, float price, int delivery_note_id) {
+    public Bill(int id, boolean paid, float price, int delivery_note_id) {
         this.id = id;
         this.paid = paid;
         this.price = price;
-        this.delivery_note_id = delivery_note_id;
+        this.deliveryNoteId = delivery_note_id;
     }
 
     public int getId() {
@@ -34,11 +34,11 @@ public class Bill {
         this.id = id;
     }
 
-    public Date getPaid() {
+    public boolean getPaid() {
         return paid;
     }
 
-    public void setPaid(Date paid) {
+    public void setPaid(boolean paid) {
         this.paid = paid;
     }
 
@@ -50,16 +50,16 @@ public class Bill {
         this.price = price;
     }
 
-    public int getDelivery_note_id() {
-        return delivery_note_id;
+    public int getDeliveryNoteId() {
+        return deliveryNoteId;
     }
 
-    public void setDelivery_note_id(int delivery_note_id) {
-        this.delivery_note_id = delivery_note_id;
+    public void setDeliveryNoteId(int delivery_note_id) {
+        this.deliveryNoteId = delivery_note_id;
     }
 
     @Override
     public String toString() {
-        return "Bill [id="+id+", paid="+paid.toString()+", price="+price+", delivery note id="+delivery_note_id+"]";
+        return "Bill [id="+id+", paid="+paid +", price="+price+", delivery note id="+deliveryNoteId+"]";
     }
 }

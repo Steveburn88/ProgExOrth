@@ -11,10 +11,8 @@
             <children>
                 <Button fx:id="createButton" mnemonicParsing="false" onAction="#createMaintenance" text="Erstellen" />
                 <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchMaintenance" text="Suchen" />
-                <Button fx:id="editButton" mnemonicParsing="false"  onAction="#editMaintenance" text="Bearbeiten" />
+                <Button fx:id="editButton" mnemonicParsing="false" onAction="#editMaintenance" text="Bearbeiten" />
                 <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteMaintenance" text="Löschen" />
-                <Button mnemonicParsing="false" text="Lizenzen anzeigen" />
-                <Button mnemonicParsing="false" text="Lizenz hinzufügen" />
                 <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
             </children>
         </HBox>

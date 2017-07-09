@@ -1,6 +1,8 @@
 package de.schneefisch.fruas.controller;
 
+import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.LicenseDAO;
+import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.License;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,10 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -101,6 +105,29 @@ public class SearchLicensesController implements Initializable{
 	}
 	@FXML
 	private void editLicense (ActionEvent event) {
+		
+		if(!table.getSelectionModel().isEmpty()) {
+			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("nur einen Kunden markieren!");
+			} else {
+				License getsEdited = table.getSelectionModel().getSelectedItem();
+				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editLicense.fxml"));
+				Stage stage = new Stage();
+				stage.setTitle("Lizenz bearbeiten");
+				try {
+					stage.setScene(new Scene(loader.load()));
+				} catch (IOException e) {
+					System.out.println("Fehler beim Oeffnen des Lizenz bearbeiten Fensters!");
+					e.printStackTrace();
+				}
+				EditLicenseController controller = loader.<EditLicenseController>getController();
+				controller.setEditableLicense(getsEdited);
+				stage.show();
+				
+			}
+		}
+		
+		
 		
 	}
 }

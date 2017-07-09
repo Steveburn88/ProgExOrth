@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.EditLicenseController">
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextField fx:id="customerIdField" GridPane.rowIndex="1" />
+                <Label text="Kunden-ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="productIdField" GridPane.rowIndex="2" />
+                <Label text="Produkt-ID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="keyField" GridPane.rowIndex="3" />
+                <Label text="Schluessel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="endField" GridPane.rowIndex="7" />
+                <Label text="Ablaufdatum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="9">
+                    <children>
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveLicense" text="Speichern" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+                    </children>
+                </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+               <children>
+                  <RadioButton fx:id="soldRadioButton" mnemonicParsing="false" text="Verkauft  ">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="soldGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="notSoldRadioButton" mnemonicParsing="false" text="Nicht Verkauft" toggleGroup="$soldGroup" />
+               </children>
+            </HBox>
+            <TextField fx:id="discountField" GridPane.rowIndex="5" />
+            <TextField fx:id="soldField" GridPane.rowIndex="6" />
+            <TextField fx:id="maintenanceIdField" GridPane.rowIndex="8" />
+            <Label text="Rabatt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Verkaufsdatum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Maintenance-ID" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>

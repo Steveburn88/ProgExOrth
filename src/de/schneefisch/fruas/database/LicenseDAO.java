@@ -105,5 +105,13 @@ public List<License> selectLicensesForProductId(int productId) throws SQLExcepti
 		return updated;
 	}
 	
+	public int deleteLicense(int id) throws SQLException {
+		String query = "delete from lizenz where idLizenz = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setInt(1, id);
+		int removed = statement.executeUpdate();
+		return removed;
+	}
+	
 	
 }

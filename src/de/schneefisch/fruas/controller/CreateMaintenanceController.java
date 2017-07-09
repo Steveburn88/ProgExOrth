@@ -4,8 +4,10 @@ import de.schneefisch.fruas.database.MaintenanceDAO;
 import de.schneefisch.fruas.model.Maintenance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.sql.Date;
@@ -34,6 +36,14 @@ public class CreateMaintenanceController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Wartungseintrag erstellt!");
+		alert.setHeaderText(null);
+		alert.setContentText("Neuer Wartungseintrag wurde erfolgreich erstellt!\n"); //+ insertedLicense.toStringForAlert());
+		alert.showAndWait();
+		Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 
 

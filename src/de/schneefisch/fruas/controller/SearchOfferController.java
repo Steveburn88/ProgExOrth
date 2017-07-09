@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 
 import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.OfferDAO;
+import de.schneefisch.fruas.database.ProductDAO;
 import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Offer;
+import de.schneefisch.fruas.model.Product;
 import de.schneefisch.fruas.transactions.OfferPDFCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,10 +21,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -70,13 +74,13 @@ public class SearchOfferController implements Initializable {
 	}
 
 	@FXML
-	private void showCreateOfferPosition() {	
+	private void showCreateOfferPosition() {
 		Offer offer = new Offer();
-		if(!table.getSelectionModel().isEmpty()) {
-			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
 				System.out.println("nur einen Kunden markieren!");
 			} else {
-				 offer = table.getSelectionModel().getSelectedItem();	
+				offer = table.getSelectionModel().getSelectedItem();
 			}
 		}
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("createOfferPosition.fxml"));
@@ -95,17 +99,17 @@ public class SearchOfferController implements Initializable {
 
 	@FXML
 	private void editOffer() {
-		if(!table.getSelectionModel().isEmpty()) {
-			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
 				System.out.println("Bitte nur ein Angebot markieren!");
 			} else {
 				Offer getsEdited = table.getSelectionModel().getSelectedItem();
-				showEditOfferPosition(getsEdited);
+				showEditOffer(getsEdited);
 			}
 		}
 	}
 
-	private void showEditOfferPosition(Offer offer) {
+	private void showEditOffer(Offer getsEdited) {
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editOffer.fxml"));
 		Stage stage = new Stage();
 		stage.setTitle("Angebotsdaten bearbeiten");
@@ -116,6 +120,35 @@ public class SearchOfferController implements Initializable {
 			e.printStackTrace();
 		}
 		EditOfferController controller = loader.<EditOfferController>getController();
+		controller.setOffer(getsEdited);
+		controller.initTextFields();
+		stage.show();
+
+	}
+
+	@FXML
+	private void editOfferPositions() {
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("Bitte nur ein Angebot markieren!");
+			} else {
+				Offer getsEdited = table.getSelectionModel().getSelectedItem();
+				showEditOfferPosition(getsEdited);
+			}
+		}
+	}
+
+	private void showEditOfferPosition(Offer offer) {
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("editOfferPositions.fxml"));
+		Stage stage = new Stage();
+		stage.setTitle("Angebotsdaten bearbeiten");
+		try {
+			stage.setScene(new Scene(loader.load()));
+		} catch (IOException e) {
+			System.out.println("Fehler beim Oeffnen des Angebotsdaten bearbeiten Fensters!");
+			e.printStackTrace();
+		}
+		EditOfferPositionsController controller = loader.<EditOfferPositionsController>getController();
 		controller.initialize(offer);
 		stage.show();
 	}
@@ -123,11 +156,11 @@ public class SearchOfferController implements Initializable {
 	@FXML
 	private void createPDF() {
 		Offer offer = new Offer();
-		if(!table.getSelectionModel().isEmpty()) {
-			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
 				System.out.println("nur einen Kunden markieren!");
 			} else {
-				 offer = table.getSelectionModel().getSelectedItem();	
+				offer = table.getSelectionModel().getSelectedItem();
 			}
 		}
 		System.out.println("erstelle pdf fuer angebot " + offer.getId() + ".");
@@ -183,6 +216,37 @@ public class SearchOfferController implements Initializable {
 		} catch (IOException e) {
 			System.out.println("Fehler beim Oeffnen des Angeboterstellen Fensters!");
 			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	private void deleteOffer(ActionEvent event) {
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("Bitte nur ein Produkt markieren!");
+			} else {
+				Offer getsRemoved = table.getSelectionModel().getSelectedItem();
+				try {
+					OfferDAO oDAO = new OfferDAO();
+					int removed = oDAO.deleteOffer(getsRemoved.getId());
+					if (removed == 1) {
+						list.remove(getsRemoved);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Angebot löschen nicht möglich!");
+					alert.setHeaderText(null);
+					alert.setContentText("Angebot:\n" + getsRemoved.toStringForAlert() + "\nLöschen fehlgeschlagen! Für dieses Angebot bestehen Positionen.");
+					alert.showAndWait();
+					return;
+				}
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Angebot gelöscht!");
+				alert.setHeaderText(null);
+				alert.setContentText("Gelöschtes Angebot:\n" + getsRemoved.toStringForAlert());
+				alert.showAndWait();
+			}
 		}
 	}
 

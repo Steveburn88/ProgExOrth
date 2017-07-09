@@ -161,6 +161,12 @@ public class SearchProductController implements Initializable {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Produkt löschen nicht möglich!");
+					alert.setHeaderText(null);
+					alert.setContentText("Produkt:\n" + getsRemoved.toStringForAlert() + "\nFür dieses Produkt sind Lizenzen vorhanden!");
+					alert.showAndWait();
+					return;
 				}
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Produkt gelöscht!");

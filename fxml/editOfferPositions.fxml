@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.EditOfferPositionsController">
+    <bottom>
+        <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#addPos" text="Erstellen" />
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deletePos" text="Löschen" />
+                <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" text="Aktualisieren" />
+                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+            </children>
+        </HBox>
+    </bottom>
+    <top>
+        <VBox prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        </VBox>
+    </top>
+    <center>
+        <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="posId" prefWidth="75.0" text="PosId" />
+                <TableColumn fx:id="productId" prefWidth="112.0" text="Produkt ID" />
+                <TableColumn fx:id="amount" prefWidth="75.0" text="Menge" />
+            </columns></TableView>
+    </center>
+</BorderPane>

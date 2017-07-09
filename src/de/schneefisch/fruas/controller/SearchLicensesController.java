@@ -27,33 +27,52 @@ import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SearchLicensesController implements Initializable{
+public class SearchLicensesController implements Initializable {
 
-	@FXML private Button cancelButton;
-	@FXML private Button searchButton;
-	@FXML private Button editButton;
-	@FXML private Button deleteButton;
-	@FXML private Button createButton;
-	@FXML private Button refreshButton;
-	
-	@FXML private TextField idField;
-	@FXML private TextField customerIdField;
-	@FXML private TextField productIdField;
-	
-	@FXML private TableView<License> table;
-	@FXML private TableColumn<License, Integer> id;
-	@FXML private TableColumn<License, Integer> customerId;
-	@FXML private TableColumn<License, Integer> productId;
-	@FXML private TableColumn<License, String> key;
-	@FXML private TableColumn<License, Boolean> sold;
-	@FXML private TableColumn<License, Float> discount;
-	@FXML private TableColumn<License, Date> soldDate;
-	@FXML private TableColumn<License, Date> endDate;
-	@FXML private TableColumn<License, Integer> maintenanceId;
-	private ObservableList<License> list =  FXCollections.observableArrayList();
+	@FXML
+	private Button cancelButton;
+	@FXML
+	private Button searchButton;
+	@FXML
+	private Button editButton;
+	@FXML
+	private Button deleteButton;
+	@FXML
+	private Button createButton;
+	@FXML
+	private Button refreshButton;
+
+	@FXML
+	private TextField idField;
+	@FXML
+	private TextField customerIdField;
+	@FXML
+	private TextField productIdField;
+
+	@FXML
+	private TableView<License> table;
+	@FXML
+	private TableColumn<License, Integer> id;
+	@FXML
+	private TableColumn<License, Integer> customerId;
+	@FXML
+	private TableColumn<License, Integer> productId;
+	@FXML
+	private TableColumn<License, String> key;
+	@FXML
+	private TableColumn<License, Boolean> sold;
+	@FXML
+	private TableColumn<License, Float> discount;
+	@FXML
+	private TableColumn<License, Date> soldDate;
+	@FXML
+	private TableColumn<License, Date> endDate;
+	@FXML
+	private TableColumn<License, Integer> maintenanceId;
+	private ObservableList<License> list = FXCollections.observableArrayList();
 	private ResourceBundle resources;
 	private URL location;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.location = location;
@@ -62,8 +81,7 @@ public class SearchLicensesController implements Initializable{
 			list.clear();
 			LicenseDAO lDAO = new LicenseDAO();
 			List<License> licenseList = lDAO.selectAllLicenses();
-			
-			
+
 			licenseList.stream().forEach(System.out::println);
 			list.addAll(licenseList);
 		} catch (Exception e) {
@@ -77,9 +95,10 @@ public class SearchLicensesController implements Initializable{
 		discount.setCellValueFactory(new PropertyValueFactory<License, Float>("discount"));
 		soldDate.setCellValueFactory(new PropertyValueFactory<License, Date>("soldDate"));
 		endDate.setCellValueFactory(new PropertyValueFactory<License, Date>("endDate"));
-		maintenanceId.setCellValueFactory(new PropertyValueFactory<License, Integer>("maintenanceId"));		
-		table.setItems(list);		
+		maintenanceId.setCellValueFactory(new PropertyValueFactory<License, Integer>("maintenanceId"));
+		table.setItems(list);
 	}
+
 	@FXML
 	private void createLicense(ActionEvent event) {
 		Parent root;
@@ -94,35 +113,36 @@ public class SearchLicensesController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-	private void cancel (ActionEvent event) {
+	private void cancel(ActionEvent event) {
 		Stage stage = (Stage) cancelButton.getScene().getWindow();
 		stage.close();
 	}
+
 	@FXML
-	private void searchLicense (ActionEvent event) {
-		
+	private void searchLicense(ActionEvent event) {
+
 	}
 
 	@FXML
 	private void refresh() {
 		Stage stage = (Stage) refreshButton.getScene().getWindow();
-		//table.refresh();
+		// table.refresh();
 		this.initialize(location, resources);
 		stage.show();
 	}
 
 	@FXML
-	private void deleteLicense (ActionEvent event) {
-		
-	}
-	@FXML
-	private void editLicense (ActionEvent event) {
+	private void deleteLicense(ActionEvent event) {
 
-		
-		if(!table.getSelectionModel().isEmpty()) {
-			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+	}
+
+	@FXML
+	private void editLicense(ActionEvent event) {
+
+		if (!table.getSelectionModel().isEmpty()) {
+			if (table.getSelectionModel().getSelectedItems().size() > 1) {
 				System.out.println("nur einen Kunden markieren!");
 			} else {
 				License getsEdited = table.getSelectionModel().getSelectedItem();
@@ -138,12 +158,9 @@ public class SearchLicensesController implements Initializable{
 				EditLicenseController controller = loader.<EditLicenseController>getController();
 				controller.setEditableLicense(getsEdited);
 				stage.show();
-				
+
 			}
 		}
-		
-		
-		
 
 	}
 }

@@ -1,121 +1,80 @@
 package de.schneefisch.fruas.controller;
 
-import de.schneefisch.fruas.database.OfferPositionDAO;
-import de.schneefisch.fruas.database.ProductDAO;
+import java.sql.Date;
+
+import de.schneefisch.fruas.database.OfferDAO;
 import de.schneefisch.fruas.model.Offer;
-import de.schneefisch.fruas.model.OfferPosition;
-import de.schneefisch.fruas.model.Product;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.List;
-
 public class EditOfferController {
+	@FXML
+	private Button saveButton;
+	@FXML
+	private Button cancelButton;
+	@FXML
+	private TextField customerIdField;
+	@FXML
+	private TextField validityField;
+	@FXML
+	private Offer offer;
 
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button refreshButton;
-    @FXML
-    private Button cancelButton;
+	@FXML
+	private void save() {
+		Offer updatedOffer = new Offer(this.offer.getId(), Integer.valueOf(customerIdField.getText()),
+				Date.valueOf(validityField.getText()));
 
-    private ObservableList<OfferPosition> list = FXCollections.observableArrayList();
-    private ObservableList<Product> listprod = FXCollections.observableArrayList();
+		try {
+			OfferDAO oDAO = new OfferDAO();
+			int updated = oDAO.updateOffer(updatedOffer);
+			System.out.println("affected rows: " + updated);
+		} catch (Exception e) {
+			e.printStackTrace();
+			printErrorAndCloseStage();
+		}
+		printOkAndCloseStage();
 
-    @FXML
-    private TableView<OfferPosition> table;
-    @FXML
-    private TableColumn<OfferPosition, Integer> posId;
-    @FXML
-    private TableColumn<OfferPosition, Integer> productId;
-    @FXML
-    private TableColumn<OfferPosition, Integer> amount;
+	}
 
-    private Offer offer;
+	@FXML
+	private void cancel(ActionEvent event) {
+		Stage stage = (Stage) cancelButton.getScene().getWindow();
+		stage.close();
+	}
 
-    void initialize(Offer offer) {
-        this.offer = offer;
-        list.clear();
-        try {
-            OfferPositionDAO odao = new OfferPositionDAO();
-            List<OfferPosition> offerPosList = odao.searchOfferPositionsByOfferId(offer.getId());
-            offerPosList.stream().forEach(System.out::println);
-            list.addAll(offerPosList);
+	public void setOffer(Offer offer) {
+		this.offer = offer;
+	}
 
-            ProductDAO pdao = new ProductDAO();
-            for (OfferPosition op : list) {
-                listprod.add(pdao.searchProductById(op.getProductId()));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        posId.setCellValueFactory(new PropertyValueFactory<OfferPosition, Integer>("id"));
-        productId.setCellValueFactory(new PropertyValueFactory<OfferPosition, Integer>("productId"));
-        amount.setCellValueFactory(new PropertyValueFactory<OfferPosition, Integer>("count"));
-        table.setItems(list);
-    }
+	private void printOkAndCloseStage() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Angebot geändert!");
+		alert.setHeaderText(null);
+		alert.setContentText("Der bestehende Eintrag wurde erfolgreich aktualisiert!\n");
+		alert.showAndWait();
+		Stage stage = (Stage) cancelButton.getScene().getWindow();
+		stage.close();
+	}
 
-    @FXML
-    private void addPos() {
-        Offer offer = this.offer;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("createOfferPosition.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Neue AngebotsPosition");
-        try {
-            stage.setScene(new Scene(loader.load()));
-        } catch (IOException e) {
-            System.out.println("Fehler beim Oeffnen des angebotsPositions Fensters!");
-            e.printStackTrace();
-        }
-        CreateOfferPositionController controller = loader.<CreateOfferPositionController>getController();
-        controller.initData(offer);
-        stage.show();
-    }
+	private void printErrorAndCloseStage() {
 
-    @FXML
-    private void deletePos() {
-        if(!table.getSelectionModel().isEmpty()) {
-            if(table.getSelectionModel().getSelectedItems().size() > 1) {
-                System.out.println("Bitte nur eine Angebotsposition markieren!");
-            } else {
-                OfferPosition getsRemoved = table.getSelectionModel().getSelectedItem();
-                try {
-                    OfferPositionDAO odao = new OfferPositionDAO();
-                    int offPoId = getsRemoved.getId();
-                    int removed = odao.deleteOfferPosition(offPoId);
-                    if(removed == 1 ) {
-                        list.remove(getsRemoved);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Angebot nicht geändert!");
+		alert.setHeaderText(null);
+		alert.setContentText("Der bestehende Eintrag konnte nicht verändert werden!\n");
+		alert.showAndWait();
+		Stage stage = (Stage) cancelButton.getScene().getWindow();
+		stage.close();
+	}
 
-    @FXML
-    private void refresh() {
-        Stage stage = (Stage) refreshButton.getScene().getWindow();
-        //table.refresh();
-        this.initialize(offer);
-        stage.show();
-    }
-
-    @FXML
-    private void cancel() {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
-    }
+	public void initTextFields() {
+		customerIdField.setText(String.valueOf(this.offer.getCustomerId()));
+		validityField.setText(String.valueOf(this.offer.getValidity()));		
+	}
 
 }

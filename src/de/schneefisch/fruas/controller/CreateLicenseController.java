@@ -35,7 +35,7 @@ public class CreateLicenseController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Lizenz erstellt!");
 		alert.setHeaderText(null);
-		alert.setContentText("Neue Lizenz:\n"); //+ insertedLicense.toStringForAlert());
+		alert.setContentText("Neue Lizenz wurde erfolgreich erstellt!\n"); //+ insertedLicense.toStringForAlert());
 		alert.showAndWait();
 		
 		Stage stage = (Stage) cancelButton.getScene().getWindow();

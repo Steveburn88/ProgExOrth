@@ -33,10 +33,10 @@
         <TableView fx:id="table" prefHeight="333.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <columns>
                 <TableColumn fx:id="id" prefWidth="38.0" text="id" />
-                <TableColumn fx:id="info" prefWidth="112.0" text="Info" />
-                <TableColumn fx:id="price" prefWidth="75.0" text="Preis" />
-                <TableColumn fx:id="start" prefWidth="299.0" text="Start Datum" />
-                <TableColumn fx:id="end" prefWidth="299.0" text="End Datum" />
+                <TableColumn fx:id="info" prefWidth="187.0" text="Info" />
+                <TableColumn fx:id="price" minWidth="0.0" prefWidth="72.0" text="Preis" />
+                <TableColumn fx:id="start" prefWidth="148.0" text="Start Datum" />
+                <TableColumn fx:id="end" maxWidth="200.0" prefWidth="154.0" text="End Datum" />
             </columns></TableView>
     </center>
 </BorderPane>

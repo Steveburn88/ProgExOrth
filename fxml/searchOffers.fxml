@@ -11,9 +11,9 @@
          <children>
             <Button fx:id="createButton" mnemonicParsing="false" onAction="#createOffer" text="Erstellen" />
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchOffer" text="Suchen" />
-            <Button fx:id="editButton" mnemonicParsing="false" text="Bearbeiten" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" text="Löschen" />
-            <Button fx:id="editPositionButton" mnemonicParsing="false" onAction="#editOffer" text="Positionen anzeigen" />
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#editOffer" text="Bearbeiten" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteOffer" text="Löschen" />
+            <Button fx:id="editPositionButton" mnemonicParsing="false" onAction="#editOfferPositions" text="Positionen anzeigen" />
             <Button fx:id="addPositionButton" mnemonicParsing="false" onAction="#showCreateOfferPosition" text="Position hinzufügen" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
             <Button fx:id="createPDFButton" mnemonicParsing="false" onAction="#createPDF" text="PDF" />

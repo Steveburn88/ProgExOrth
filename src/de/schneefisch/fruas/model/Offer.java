@@ -52,4 +52,8 @@ public class Offer {
 		return "Offer [id=" + id + ", customerId=" + customerId + ", validity=" + validity + "]";
 	}
 
+	public String toStringForAlert() {
+		return "Id: " + id + "\nKundenID: " + customerId + "\nGueltigkeit: " + validity; 
+	}
+
 }

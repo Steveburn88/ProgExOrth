@@ -26,13 +26,14 @@ public class MaintenanceDAO {
                 + "infoMaintenance = ?, "
                 + "kaufpreisMaintenance = ?, "
                 + "startDatumMaintenance = ?, "
-                + "endDatumMaintenance = ?, "
+                + "endDatumMaintenance = ? "
                 + "where idMaintenance = ?;";
         PreparedStatement statement = dbc.getConnection().prepareStatement(query);
         statement.setString(1, maintenance.getInfo());
         statement.setFloat(2, maintenance.getPrice());
         statement.setDate(3, maintenance.getStart());
         statement.setDate(4, maintenance.getEnd());
+        statement.setInt(5, maintenance.getId());
         int updated = statement.executeUpdate();
         return updated;
     }

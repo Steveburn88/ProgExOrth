@@ -2,15 +2,12 @@ package de.schneefisch.fruas.controller;
 
 import de.schneefisch.fruas.database.ProductDAO;
 import de.schneefisch.fruas.model.Product;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class EditProductController {
@@ -57,7 +54,7 @@ public class EditProductController {
         }
         if(updated == 1) {
         	Alert alert = new Alert(AlertType.INFORMATION);
-    		alert.setTitle("Produktdaten geändert!");
+    		alert.setTitle("Produktdaten aktualisiert!");
     		alert.setHeaderText(null);
     		alert.setContentText("Neue Daten:\n" + updatedProduct.toStringForAlert());
     		alert.showAndWait();

@@ -2,16 +2,24 @@
 package de.schneefisch.fruas.controller;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
+import de.schneefisch.fruas.database.CustomerDAO;
+import de.schneefisch.fruas.database.LicenseDAO;
+import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.License;
+import de.schneefisch.fruas.model.Salutation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 public class EditLicenseController implements Initializable {
 
@@ -44,7 +52,29 @@ public class EditLicenseController implements Initializable {
 	    
 	    @FXML
 	    private void saveLicense(ActionEvent event) {
-	    	
+	    	boolean sold;
+	    	if(soldRadioButton.isSelected()) {
+	    		sold = true;
+	    	} else sold = false;
+	    	License license = new License(this.license.getId(), Integer.valueOf(customerIdField.getText()), Integer.valueOf(productIdField.getText()), keyField.getText(),  sold, 
+	    			Float.valueOf(discountField.getText()), Date.valueOf(soldField.getText()), Date.valueOf(endField.getText()), Integer.valueOf(maintenanceIdField.getText()));			
+			int updated= 0;
+			try {
+				LicenseDAO lDAO = new LicenseDAO();
+				updated = lDAO.updateLicense(license);
+				System.out.println("affected rows: "+ updated);
+			} catch ( Exception e) {
+				e.printStackTrace();
+			}
+			if(updated == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Lizenz aktualisiert!");
+				alert.setHeaderText(null);
+				alert.setContentText("Neue Informationen:\n" + license.toStringForAlert());
+				alert.showAndWait();
+				Stage stage = (Stage) cancelButton.getScene().getWindow();
+				stage.close();
+			}
 	    }
 	    @FXML
 	    private void cancel(ActionEvent event) {

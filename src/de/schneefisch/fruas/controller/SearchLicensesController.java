@@ -59,6 +59,7 @@ public class SearchLicensesController implements Initializable{
 		this.location = location;
 		this.resources = resources;
 		try {
+			list.clear();
 			LicenseDAO lDAO = new LicenseDAO();
 			List<License> licenseList = lDAO.selectAllLicenses();
 			

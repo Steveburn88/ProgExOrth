@@ -84,14 +84,22 @@ public List<License> selectLicensesForProductId(int productId) throws SQLExcepti
 				+ "idMaintenance = ? "
 				+ "where idLizenz = ?;";
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
-		statement.setInt(1, license.getCustomerId());
+		if(license.getCustomerId() == 0) {
+			statement.setNull(1, java.sql.Types.INTEGER);
+		} else statement.setInt(1, license.getCustomerId());		
 		statement.setInt(2, license.getProductId());
 		statement.setString(3, license.getKey());
 		statement.setBoolean(4, license.isSold());
 		statement.setFloat(5, license.getDiscount());
-		statement.setDate(6, license.getSoldDate());
-		statement.setDate(7, license.getEndDate());
-		statement.setInt(8, license.getMaintenanceId());
+		if(license.getSoldDate() == null) {
+			statement.setNull(6, java.sql.Types.DATE);
+		} else statement.setDate(6, license.getSoldDate());
+		if(license.getEndDate() == null) {
+			statement.setNull(7, java.sql.Types.DATE);
+		} else statement.setDate(7, license.getEndDate());
+		if(license.getMaintenanceId() == 0) {
+			statement.setNull(8, java.sql.Types.INTEGER);
+		} else statement.setInt(8, license.getMaintenanceId());		
 		statement.setInt(9, license.getId());
 		int updated = statement.executeUpdate();
 		return updated;

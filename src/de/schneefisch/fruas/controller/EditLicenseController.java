@@ -56,8 +56,17 @@ public class EditLicenseController implements Initializable {
 	    	if(soldRadioButton.isSelected()) {
 	    		sold = true;
 	    	} else sold = false;
+	    	Date soldD = null;
+	    	Date endD = null;
+	    	if(!soldField.getText().isEmpty()) {
+	    		soldD = Date.valueOf(soldField.getText());
+	    	}
+	    	if(!endField.getText().isEmpty()) {
+	    		endD = Date.valueOf(endField.getText());
+	    	}
+	    	
 	    	License license = new License(this.license.getId(), Integer.valueOf(customerIdField.getText()), Integer.valueOf(productIdField.getText()), keyField.getText(),  sold, 
-	    			Float.valueOf(discountField.getText()), Date.valueOf(soldField.getText()), Date.valueOf(endField.getText()), Integer.valueOf(maintenanceIdField.getText()));			
+	    			Float.valueOf(discountField.getText()), soldD, endD, Integer.valueOf(maintenanceIdField.getText()));			
 			int updated= 0;
 			try {
 				LicenseDAO lDAO = new LicenseDAO();

@@ -13,6 +13,7 @@
             <Button fx:id="createButton" mnemonicParsing="false" onAction="#createLicense" text="Erstellen" />
             <Button fx:id="editButton" mnemonicParsing="false" onAction="#editLicense" text="Bearbeiten" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteLicense" text="Löschen" />
+            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" text="Aktualisieren" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
          </children>
       </HBox>

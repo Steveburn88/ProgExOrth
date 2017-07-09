@@ -201,7 +201,7 @@ public class Customer {
 		return "Id: " + id + "\nFiKuId: " + fiKuId + "\nStandortId: " + locationId + "\nAnrede: " + salutation
 				+ "\nVorname: " + firstName + "\nNachname: " + lastName + "\nTelefon: " + phoneNumber + "\nEmail: "
 				+ email + "\nPosition: " + position + "\nAbteilung: " + department + "\nRaumnummer: " + roomNumber
-				+ "\nGebäudenummer:" + buildingNumber + "\nFax: " + faxNumber;
+				+ "\nGebaeudenummer:" + buildingNumber + "\nFax: " + faxNumber;
 	}
 
 }

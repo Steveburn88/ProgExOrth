@@ -9,6 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.schneefisch.fruas.model.Customer;
+import de.schneefisch.fruas.model.Maintenance;
+import de.schneefisch.fruas.model.Offer;
+import de.schneefisch.fruas.model.Product;
+import de.schneefisch.fruas.model.Salutation;
+
 public class OfferDAO {
 	 
 	private DBConnector dbc;

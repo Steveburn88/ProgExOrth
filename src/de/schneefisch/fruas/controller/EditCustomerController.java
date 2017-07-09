@@ -64,10 +64,8 @@ public class EditCustomerController  {
 		email.setText(customer.getEmail());
 		roomNumber.setText(customer.getRoomNumber());
 		buildingNumber.setText(customer.getBuildingNumber());
-		faxNumber.setText(customer.getFaxNumber());	
-		
+		faxNumber.setText(customer.getFaxNumber());
 	}
-
 
 	@FXML
 	private void saveCustomer() {
@@ -95,7 +93,6 @@ public class EditCustomerController  {
 			Stage stage = (Stage) cancelButton.getScene().getWindow();
 			stage.close();
 		}
-		
 	}
 	
 	@FXML
@@ -103,5 +100,4 @@ public class EditCustomerController  {
 		Stage stage = (Stage) cancelButton.getScene().getWindow();
 		stage.close();
 	}
-
 }

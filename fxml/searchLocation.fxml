@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.schneefisch.fruas.controller.SearchLocationController">
+   <bottom>
+      <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="createButton" mnemonicParsing="false" onAction="#create" text="Erstellen" />
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#edit" text="Bearbeiten" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#delete" text="Löschen" />
+            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" text="Aktualisieren" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <TableView fx:id="table" prefHeight="339.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="id" prefWidth="48.0" text="id" />
+            <TableColumn fx:id="fiCustomerId" prefWidth="61.0" text="FiKuID" />
+            <TableColumn fx:id="postalCode" prefWidth="73.0" text="PLZ" />
+            <TableColumn fx:id="city" prefWidth="135.0" text="Stadt" />
+            <TableColumn fx:id="street" prefWidth="121.0" text="Straße" />
+            <TableColumn fx:id="houseNumber" prefWidth="89.0" text="Hausnummer" />
+            <TableColumn fx:id="postBox" prefWidth="57.0" text="Postfach" />
+            
+         </columns></TableView>
+   </center>
+</BorderPane>

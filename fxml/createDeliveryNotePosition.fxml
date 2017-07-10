@@ -38,6 +38,7 @@
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
                     </children>
                 </HBox>
+            <ComboBox fx:id="licenseBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </center>

@@ -1,33 +1,43 @@
 package de.schneefisch.fruas.controller;
 
+import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import de.schneefisch.fruas.database.CustomerDAO;
 import de.schneefisch.fruas.database.OfferDAO;
+import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.Offer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class EditOfferController {
-	@FXML
-	private Button saveButton;
-	@FXML
-	private Button cancelButton;
-	@FXML
-	private TextField customerIdField;
-	@FXML
-	private TextField validityField;
-	@FXML
-	private Offer offer;
+public class EditOfferController implements Initializable{
+	@FXML private Button saveButton;
+	@FXML private Button cancelButton;
+	@FXML private TextField customerIdField;
+	@FXML private DatePicker validityDatePicker;
+	@FXML private ComboBox<String> customerBox;    
+	@FXML private Offer offer;
+	
+	private ObservableList<String> customerList = FXCollections.observableArrayList();
 
 	@FXML
 	private void save() {
 		Offer updatedOffer = new Offer(this.offer.getId(), Integer.valueOf(customerIdField.getText()),
-				Date.valueOf(validityField.getText()));
+				Date.valueOf(validityDatePicker.getValue()));
 
 		try {
 			OfferDAO oDAO = new OfferDAO();
@@ -73,8 +83,23 @@ public class EditOfferController {
 	}
 
 	public void initTextFields() {
-		customerIdField.setText(String.valueOf(this.offer.getCustomerId()));
-		validityField.setText(String.valueOf(this.offer.getValidity()));		
+		customerIdField.setText(String.valueOf(offer.getCustomerId()));
+		validityDatePicker.setValue(offer.getValidity().toLocalDate());		
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		CustomerDAO cDAO = new CustomerDAO();
+		
+		try {
+			List<Customer> cList = cDAO.selectAllCustomers();
+			List<String> customerStringList = cList.stream().map(c -> c.toStringForList()).collect(Collectors.toList());
+			customerList.addAll(customerStringList);
+			customerBox.getItems().addAll(customerList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		customerBox.setOnAction(e -> customerIdField.setText(customerBox.getValue().substring(customerBox.getValue().indexOf("[")+1,customerBox.getValue().indexOf("]") )));
 	}
 
 }

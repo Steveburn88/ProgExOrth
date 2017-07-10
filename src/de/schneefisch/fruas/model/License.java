@@ -143,4 +143,9 @@ public class License {
 		return "\nId: " + id + "\nProduktId: " +productId+ "\nSchluessel: " + key;				
 	}
 
+	public Object toStringForList() {
+		
+		return null;
+	}
+
 }

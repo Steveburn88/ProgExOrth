@@ -93,7 +93,7 @@ public class SearchOfferController implements Initializable {
 			e.printStackTrace();
 		}
 		CreateOfferPositionController controller = loader.<CreateOfferPositionController>getController();
-		controller.initData(offer);
+		controller.setOffer(offer);		
 		stage.show();
 	}
 

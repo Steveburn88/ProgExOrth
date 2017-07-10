@@ -27,14 +27,14 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="dateField" GridPane.rowIndex="1" />
-                <Label text="Datum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Datum" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <children>
                         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Speichern" />
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
                     </children>
                 </HBox>
+            <DatePicker fx:id="datePicker" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </center>

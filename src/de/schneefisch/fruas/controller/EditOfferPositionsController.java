@@ -79,7 +79,7 @@ public class EditOfferPositionsController {
             e.printStackTrace();
         }
         CreateOfferPositionController controller = loader.<CreateOfferPositionController>getController();
-        controller.initData(offer);
+        controller.setOffer(offer);
         stage.show();
     }
 

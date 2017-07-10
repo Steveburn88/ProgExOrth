@@ -70,7 +70,11 @@ public class Product {
         return "Product [id=" + id + ", nameProduct=" + name + ", versionNumberProduct=" + version
                 + ", price=" + price + ", requirements=" + requirements + "]";
     }
-
+    
+    public String toStringForList() {
+		return name + " ["+ id + "]";
+	}
+    
 	public String toStringForAlert() {
 		return "Id: " + id + "\nName: " + name + "\nVersion: " + version + "\nPreis: " + price + "\nSystemvoraussetzungen: " + requirements;
 	}

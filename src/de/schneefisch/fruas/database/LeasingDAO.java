@@ -24,7 +24,7 @@ public class LeasingDAO {
 	
 	public Leasing insertLeasing(Leasing leasing) throws SQLException {
 		String query = "insert into leasing (idPersonenkunde, idProdukt, startDatumLeasing, "
-				+ "ersteRechnungLeasing, rechnungsBetragLeasing, faelligRechnungLeasing, "
+				+ "ersteRechnungDatumLeasing, rechnungsBetragLeasing, faelligRechnungLeasing, "
 				+ "anzahlRechnungenLeasing, letzteRechnungDatum)" + " values (?, ?, ?, ?, ?, ?, ?, ?);";		
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);		
 		statement.setInt(1, leasing.getCustomerId());

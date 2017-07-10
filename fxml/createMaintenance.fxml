@@ -34,16 +34,16 @@
                 <Label text="Mainenance Info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="price" GridPane.rowIndex="2" />
                 <Label text="Preis" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="start" GridPane.rowIndex="3" />
-                <Label text="Start Datum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="end" GridPane.rowIndex="4" />
-                <Label text="End Datum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Start-Datum" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="End-Datum" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
                     <children>
                         <Button fx:id="createMaintenanceButton" mnemonicParsing="false" onAction="#createMaintenance" text="Erstellen" />
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
                     </children>
                 </HBox>
+            <DatePicker fx:id="startDatePicker" GridPane.rowIndex="3" />
+            <DatePicker fx:id="endDatePicker" GridPane.rowIndex="4" />
             </children>
         </GridPane>
     </center>

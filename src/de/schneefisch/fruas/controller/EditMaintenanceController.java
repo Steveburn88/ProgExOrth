@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -14,20 +15,13 @@ import java.sql.Date;
 
 public class EditMaintenanceController {
 
-	@FXML
-	private Button saveButton;
-	@FXML
-	private Button cancelButton;
-	@FXML
-	private TextField info;
-	@FXML
-	private TextField price;
-	@FXML
-	private TextField start;
-	@FXML
-	private TextField end;
-	@FXML
-	private Maintenance maintenance;
+	@FXML private Button saveButton;
+	@FXML private Button cancelButton;
+	@FXML private TextField info;
+	@FXML private TextField price;
+	@FXML private DatePicker startDatePicker;
+	@FXML private DatePicker endDatePicker;
+	@FXML private Maintenance maintenance;
 
 	
 
@@ -36,14 +30,14 @@ public class EditMaintenanceController {
 		System.out.println(maintenance.getId());
 		info.setText(String.valueOf(maintenance.getInfo()));
 		price.setText(String.valueOf(maintenance.getPrice()));
-		start.setText(String.valueOf(maintenance.getStart()));
-		end.setText(String.valueOf(maintenance.getEnd()));
+		startDatePicker.setValue(maintenance.getStart().toLocalDate());
+		endDatePicker.setValue(maintenance.getEnd().toLocalDate());
 	}
 
 	@FXML
     private void saveMaintenance() {
         Maintenance updatedMaintenance = new Maintenance(maintenance.getId(), info.getText(),
-                Float.parseFloat(price.getText().trim()), Date.valueOf(start.getText()), Date.valueOf(end.getText()));
+                Float.parseFloat(price.getText().trim()), Date.valueOf(startDatePicker.getValue()), Date.valueOf(endDatePicker.getValue()));
 
         try {
             MaintenanceDAO mdao = new MaintenanceDAO();

@@ -29,14 +29,15 @@
             <children>
                 <TextField fx:id="customerIdField" GridPane.rowIndex="1" />
                 <Label text="Kunden-ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="validityField" GridPane.rowIndex="2" />
-                <Label text="Gültigkeit (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Gültigkeit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                     <children>
                         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Speichern" />
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
                     </children>
                 </HBox>
+            <ComboBox fx:id="customerBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <DatePicker fx:id="validityDatePicker" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </center>

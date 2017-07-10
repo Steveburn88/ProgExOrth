@@ -57,24 +57,33 @@ public class DeliveryNoteDAO {
 	}
 
 	public DeliveryNote selectDeliveryNoteById(int dnId) throws SQLException {
-		 String query = "select * from lieferschein where idLieferschein = ?;";
-	        PreparedStatement statement = dbc.getConnection().prepareStatement(query);
-	        statement.setInt(1, dnId);
-	        ResultSet rs = statement.executeQuery();
-	        DeliveryNote deliveryNote = null;
-	        while(rs.next()) {
-	        	deliveryNote =  new DeliveryNote(rs.getInt("idLieferschein"),
-	                    rs.getDate("datumLieferschein"));
-	        }
-	        return deliveryNote;
+		String query = "select * from lieferschein where idLieferschein = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setInt(1, dnId);
+		ResultSet rs = statement.executeQuery();
+		DeliveryNote deliveryNote = null;
+		while (rs.next()) {
+			deliveryNote = new DeliveryNote(rs.getInt("idLieferschein"), rs.getDate("datumLieferschein"));
+		}
+		return deliveryNote;
 	}
 
 	public int deleteDeliveryNote(int id) throws SQLException {
 		String query = "delete from lieferschein where idLieferschein = ?;";
-        PreparedStatement statement = dbc.getConnection().prepareStatement(query);
-        statement.setInt(1, id);
-        int removed = statement.executeUpdate();
-        return removed;
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setInt(1, id);
+		int removed = statement.executeUpdate();
+		return removed;
+	}
+
+	public int updateDeliveryNote(DeliveryNote editedNote) throws SQLException {
+		String query = "update lieferschein set " + "datumLieferschein = ? " + "where idLieferschein = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setDate(1, editedNote.getDate());
+		statement.setInt(2, editedNote.getId());
+		int updated = statement.executeUpdate();
+		return updated;
+
 	}
 
 }

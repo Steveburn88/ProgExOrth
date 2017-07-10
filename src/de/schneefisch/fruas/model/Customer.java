@@ -188,6 +188,10 @@ public class Customer {
 	public void setFaxNumber(String faxNumber) {
 		this.faxNumber = faxNumber;
 	}
+	
+	public String toStringForList() {
+		return lastName + ", " + firstName +" ["+ id + "]";
+	}
 
 	@Override
 	public String toString() {

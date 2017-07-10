@@ -29,8 +29,7 @@
             <children>
                 <TextField fx:id="customerId" GridPane.rowIndex="1" />
                 <Label text="KundenID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="validity" GridPane.rowIndex="2" />
-                <Label text="Gültigkeit (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Gültigkeit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5" />
               <HBox prefHeight="36.0" prefWidth="600.0" GridPane.rowIndex="3">
                <children>
@@ -38,6 +37,8 @@
                         <Button fx:id="createOfferButton" mnemonicParsing="false" onAction="#createOffer" text="Erstellen" />
                </children>
             </HBox>
+            <DatePicker fx:id="validityDatePicker" GridPane.rowIndex="2" />
+            <ComboBox fx:id="customerBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </center>

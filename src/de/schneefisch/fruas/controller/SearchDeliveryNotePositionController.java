@@ -119,7 +119,7 @@ public class SearchDeliveryNotePositionController {
 			e.printStackTrace();
 		}
 		CreateDeliveryNotePositionController controller = loader.<CreateDeliveryNotePositionController>getController();
-		controller.initData(this.deliveryNote);
+		controller.setDeliveryNote(this.deliveryNote);
 		stage.show();
 	}
 

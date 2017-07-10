@@ -54,7 +54,7 @@ public class OfferDAO {
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
 		statement.setInt(1, offerId);
 		ResultSet rs = statement.executeQuery();
-		Offer offer = new Offer();
+		Offer offer = null;
 		while (rs.next()) {
 			offer = new Offer(rs.getInt("idAngebot"), rs.getInt("idPersonenkunde"), rs.getDate("gueltigkeitAngebot"));
 		}

@@ -75,7 +75,7 @@ public class LocationDAO {
 	}
 
 	public int deleteLocation(int custId) throws SQLException{
-		String query = "delete from location where idLocation = ?;";
+		String query = "delete from standort where idStandort = ?;";
 		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
 		statement.setInt(1, custId);
 		int removed = statement.executeUpdate();

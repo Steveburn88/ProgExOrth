@@ -122,7 +122,44 @@ public class SearchLicensesController implements Initializable {
 
 	@FXML
 	private void searchLicense(ActionEvent event) {
-
+		if(idField.getText().length() > 0) {
+			try {
+				LicenseDAO lDAO = new LicenseDAO();
+				License license = lDAO.selectLicenseById(Integer.parseInt(idField.getText()));				
+				list.clear();
+				list.add(license);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (customerIdField.getText().length() > 0) {
+			try {
+				LicenseDAO lDAO = new LicenseDAO();
+				List<License> licenses = lDAO.selectLicenseByCustomerId(Integer.parseInt(customerIdField.getText()));
+				list.clear();
+				list.addAll(licenses);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (productIdField.getText().length() > 0) {
+			try {
+				LicenseDAO lDAO = new LicenseDAO();
+				List<License> licenses = lDAO.selectLicensesForProductId(Integer.parseInt(customerIdField.getText()));
+				list.clear();
+				list.addAll(licenses);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(idField.getText().length() == 0 && customerIdField.getText().length() == 0 && productIdField.getText().length() == 0) {
+			try {
+				LicenseDAO lDAO = new LicenseDAO();
+				List<License> licenses = lDAO.selectAllLicenses();
+				list.clear();
+				list.addAll(licenses);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@FXML
@@ -135,7 +172,29 @@ public class SearchLicensesController implements Initializable {
 
 	@FXML
 	private void deleteLicense(ActionEvent event) {
-
+		if(!table.getSelectionModel().isEmpty()) {
+			if(table.getSelectionModel().getSelectedItems().size() > 1) {
+				System.out.println("nur einen Kunden markieren!");
+			} else {
+				License getsRemoved = table.getSelectionModel().getSelectedItem();
+				try {
+					LicenseDAO lDAO = new LicenseDAO();					
+					int licId = getsRemoved.getId();
+					int removed = lDAO.deleteLicense(licId);		
+					if(removed == 1 ) {
+						list.remove(getsRemoved);
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Lizenz gelöscht!");
+						alert.setHeaderText(null);
+						alert.setContentText("Gelöschte Daten:\n" + getsRemoved.toStringForAlert());
+						alert.showAndWait();						
+					}					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
 	}
 
 	@FXML

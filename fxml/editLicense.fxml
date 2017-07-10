@@ -34,8 +34,7 @@
                 <Label text="Produkt-ID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="keyField" GridPane.rowIndex="3" />
                 <Label text="Schluessel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="endField" GridPane.rowIndex="7" />
-                <Label text="Ablaufdatum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Label text="Ablaufdatum" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="9">
                     <children>
                         <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveLicense" text="Speichern" />
@@ -53,13 +52,16 @@
                </children>
             </HBox>
             <TextField fx:id="discountField" GridPane.rowIndex="5" />
-            <TextField fx:id="soldField" GridPane.rowIndex="6" />
             <TextField fx:id="maintenanceIdField" GridPane.rowIndex="8" />
             <Label text="Rabatt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Verkaufsdatum (yyyy-mm-dd)" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Verkaufsdatum" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Maintenance-ID" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <DatePicker fx:id="soldDatePicker" GridPane.rowIndex="6" />
+            <DatePicker fx:id="endDatePicker" GridPane.rowIndex="7" />
+            <ComboBox fx:id="customerBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ComboBox fx:id="productBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ComboBox fx:id="maintenanceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             </children>
         </GridPane>
     </center>
 </BorderPane>
-

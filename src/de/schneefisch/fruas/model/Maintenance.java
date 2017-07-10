@@ -72,4 +72,9 @@ public class Maintenance {
         return "Maintenance [id=" + id + ", infoMaintenance=" + info + ", price=" + price
                 + ", startDate=" + start.toString() + ", endDate=" + end.toString() + "]";
     }
+
+	public String toStringForList() {
+		
+		return info + " [" + id + "]";
+	}
 }

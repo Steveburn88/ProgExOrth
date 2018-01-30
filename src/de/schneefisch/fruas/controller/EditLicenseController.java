@@ -54,23 +54,23 @@ public class EditLicenseController implements Initializable {
 	    private TextField discountField;
 	    @FXML
 	    private DatePicker soldDatePicker;
-	    @FXML 
-	    private DatePicker endDatePicker;	    
+	    @FXML
+	    private DatePicker endDatePicker;
 	    @FXML
 	    private TextField maintenanceIdField;
-	    @FXML 
+	    @FXML
 	    private RadioButton soldRadioButton;
-	    @FXML 
+	    @FXML
 	    private RadioButton notSoldRadioButton;
 	    @FXML
 		private ToggleGroup soldGroup;
 	    @FXML
 	    private License license;
-	    
+
 	    private ObservableList<String> customerList = FXCollections.observableArrayList();
 		private ObservableList<String> productList = FXCollections.observableArrayList();
 		private ObservableList<String> maintenanceList = FXCollections.observableArrayList();
-		
+
 	    @FXML
 	    private void saveLicense(ActionEvent event) {
 	    	boolean sold;
@@ -85,9 +85,9 @@ public class EditLicenseController implements Initializable {
 	    	if(!(endDatePicker.getValue() == null)) {
 	    		endD = Date.valueOf(endDatePicker.getValue());
 	    	}
-	    	
-	    	License license = new License(this.license.getId(), Integer.valueOf(customerIdField.getText()), Integer.valueOf(productIdField.getText()), keyField.getText(),  sold, 
-	    			Float.valueOf(discountField.getText()), soldD, endD, Integer.valueOf(maintenanceIdField.getText()));			
+
+	    	License license = new License(this.license.getId(), Integer.valueOf(customerIdField.getText()), Integer.valueOf(productIdField.getText()), keyField.getText(),  sold,
+	    			Float.valueOf(discountField.getText()), soldD, endD, Integer.valueOf(maintenanceIdField.getText()));
 			int updated= 0;
 			try {
 				LicenseDAO lDAO = new LicenseDAO();
@@ -108,7 +108,7 @@ public class EditLicenseController implements Initializable {
 	    }
 	    @FXML
 	    private void cancel(ActionEvent event) {
-	    	
+
 	    }
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
@@ -137,14 +137,14 @@ public class EditLicenseController implements Initializable {
 			customerBox.setOnAction(e -> customerIdField.setText(customerBox.getValue().substring(customerBox.getValue().indexOf("[")+1,customerBox.getValue().indexOf("]") )));
 			productBox.setOnAction(e -> productIdField.setText(productBox.getValue().substring(productBox.getValue().indexOf("[")+1,productBox.getValue().indexOf("]") )));
 			maintenanceBox.setOnAction(e -> maintenanceIdField.setText(maintenanceBox.getValue().substring(maintenanceBox.getValue().indexOf("[")+1,maintenanceBox.getValue().indexOf("]") )));
-			
+
 		}
 		public void setEditableLicense(License getsEdited) {
 			this.license = getsEdited;
 			customerIdField.setText(Integer.toString(getsEdited.getCustomerId()));
 			productIdField.setText(Integer.toString(getsEdited.getProductId()));
 			keyField.setText(getsEdited.getKey());
-			
+
 			discountField.setText(Float.toString(getsEdited.getDiscount()));
 			if(getsEdited.getSoldDate() != null) {
 				soldDatePicker.setValue(getsEdited.getSoldDate().toLocalDate());
@@ -152,13 +152,13 @@ public class EditLicenseController implements Initializable {
 			if(getsEdited.getEndDate() != null) {
 				endDatePicker.setValue(getsEdited.getEndDate().toLocalDate());
 			}
-			
+
 			maintenanceIdField.setText(Integer.toString(getsEdited.getMaintenanceId()));
 			if(getsEdited.isSold()) {
 				soldRadioButton.setSelected(true);
 			} else notSoldRadioButton.setSelected(true);
-			
+
 		}
-	    
+
 }
 

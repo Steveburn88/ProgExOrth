@@ -24,6 +24,14 @@ public class Location {
 		this.houseNumber = houseNumber;
 	}
 	
+	public Location(int fiKuId, String postalCode, String city, String postBox, String street, String houseNumber) {
+		this.fiKuId = fiKuId;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.postBox = postBox;
+		this.street = street;
+		this.houseNumber = houseNumber;
+	}
 	public Location(String postalCode, String city, String postBox, String street, String houseNumber) {
 		this.postalCode = postalCode;
 		this.city = city;

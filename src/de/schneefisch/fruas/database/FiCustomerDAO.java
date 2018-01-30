@@ -1,7 +1,10 @@
 package de.schneefisch.fruas.database;
 
 import com.mysql.jdbc.Statement;
+
+import de.schneefisch.fruas.model.Customer;
 import de.schneefisch.fruas.model.FiCustomer;
+import de.schneefisch.fruas.model.Salutation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,4 +66,46 @@ public class FiCustomerDAO {
 		}
 		return fiCustomerList;
 	}
+
+	public List<FiCustomer> searchFiCustomersByName(String text) throws SQLException {
+		List<FiCustomer> customerList = new ArrayList<FiCustomer>();
+		String query = "select * from firmenkunde where nameFirmenkunde like ?;";
+
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setString(1, "%" + text + "%");
+
+		ResultSet rs = statement.executeQuery();
+		while (rs.next()) {
+			FiCustomer customer = new FiCustomer(rs.getInt("idFirmenkunde"), rs.getString("nameFirmenkunde"));
+			customerList.add(customer);
+		}
+		return customerList;
+	}
+
+	public int deleteFiCustomer(int custId) throws SQLException {
+		String query1 = "delete from standort where idFirmenkunde = ?";
+		PreparedStatement statement1 = dbc.getConnection().prepareStatement(query1);
+		statement1.setInt(1, custId);
+		int removed1 = statement1.executeUpdate();
+
+		String query2 = "delete from firmenkunde where idFirmenkunde = ?;";
+		PreparedStatement statement2 = dbc.getConnection().prepareStatement(query2);
+		statement2.setInt(1, custId);
+		int removed2 = statement2.executeUpdate();
+		return removed1 + removed2;
+	}
+
+	public int updateFiCustomer(FiCustomer edited) throws SQLException {
+		String query = "update firmenkunde set nameFirmenkunde = ? "
+
+				+ "where idFirmenkunde = ?;";
+		PreparedStatement statement = dbc.getConnection().prepareStatement(query);
+		statement.setString(1, edited.getName());
+		statement.setInt(2, edited.getId());
+
+		int updated = statement.executeUpdate();
+		return updated;
+
+	}
+
 }

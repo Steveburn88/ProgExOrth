@@ -20,7 +20,7 @@ public class MainWindowController {
 	@FXML private Button searchDeliveryNoteButton;
 	@FXML private Button searchLicenseButton;
 	@FXML private Button searchLeasingButton;
-	
+	@FXML private Button searchFiCustomerButton;
 	@FXML
 	private void searchLeasing(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("searchLeasings.fxml"));
@@ -33,6 +33,21 @@ public class MainWindowController {
 			e.printStackTrace();
 		}
 		SearchLeasingsController controller = loader.<SearchLeasingsController>getController();		
+		stage.show();
+	}
+	
+	@FXML
+	private void searchFiCustomer(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("searchFiCustomer.fxml"));
+		Stage stage = new Stage();
+		stage.setTitle("Firmenkunden");
+		try {
+			stage.setScene(new Scene(loader.load()));
+		} catch (IOException e) {
+			System.out.println("Fehler beim Oeffnen des Firmenkunden-Suche-Fensters!");
+			e.printStackTrace();
+		}
+		SearchFiCustomerController controller = loader.<SearchFiCustomerController>getController();		
 		stage.show();
 	}
 

@@ -107,12 +107,11 @@ public class CreateDeliveryNotePositionController implements Initializable {
 		LicenseDAO lDAO = new LicenseDAO();
 		ProductDAO pDAO = new ProductDAO();
 		try {
-			List<License> lList = lDAO.selectAllLicenses();
+			List<License> lList = lDAO.selectAllAvailableLicenses();
 			for(License lic : lList) {
 				Product product = pDAO.searchProductById(lic.getProductId());
 				licenseList.add(product.getName() + " [" +lic.getId()+ "]");
-			}
-			
+			}			
 			licenseBox.getItems().addAll(licenseList);
 		} catch (SQLException e) {
 			e.printStackTrace();
